@@ -1,10 +1,18 @@
 package com.refinitiv.beer.quickfixj;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
+
+import org.apache.maven.model.Build;
+
 import quickfix.*;
 import quickfix.field.*;
-import quickfix.fix42.ExecutionReport;
-import quickfix.fix42.MessageCracker;
-import quickfix.fix42.NewOrderSingle;
+import quickfix.fix44.MessageCracker;
+import quickfix.fix44.NewOrderSingle;
+import quickfix.fix44.TradeCaptureReport;
 
 public class FixAcceptor extends MessageCracker implements Application
 {
@@ -61,7 +69,7 @@ public class FixAcceptor extends MessageCracker implements Application
     }
 
     @Override
-    public void onMessage(quickfix.fix42.NewOrderSingle order, SessionID sessionID) throws FieldNotFound, UnsupportedMessageType, IncorrectTagValue {
+    public void onMessage(NewOrderSingle order, SessionID sessionID) throws FieldNotFound, UnsupportedMessageType, IncorrectTagValue {
         System.out.println("###NewOrder Received:" + order.toString());
         System.out.println("###Symbol" + order.getSymbol().toString());
         System.out.println("###Side" + order.getSide().toString());
@@ -71,21 +79,125 @@ public class FixAcceptor extends MessageCracker implements Application
         sendMessageToClient(order, sessionID);
     }
 
+    private Date BuildDate(int year, int month, int day)
+    {
+        Calendar cldr = Calendar.getInstance();
+        cldr.set(Calendar.YEAR, year);
+        cldr.set(Calendar.MONTH, Calendar.JANUARY + month - 1);
+        cldr.set(Calendar.DAY_OF_MONTH, day);
+        return cldr.getTime();
+    }
+
+    private String ToString(Date d, String format)
+    {
+        DateFormat dateFormat = new SimpleDateFormat(format);
+        return dateFormat.format(d);
+    }
     private void sendMessageToClient(NewOrderSingle order, SessionID sessionID) {
         try 
         {
-            quickfix.fix42.ExecutionReport accept = new ExecutionReport();
+            TradeCaptureReport tcr = new TradeCaptureReport();
             {
-                accept.set(new ExecID("789"));
-                accept.set(new OrdStatus(OrdStatus.NEW));
-                accept.set(new ExecTransType(ExecTransType.NEW));
-                accept.set(new OrderQty(56.0));
+                tcr.set(new TradeReportID("MyTradeReportId"));
+                tcr.setField(new StringField(1003, "MyTradeId"));
+                tcr.set(new ExecType(ExecType.TRADE));
+
+                /*
+                tcr.setInt(1907, 1);
+                {
+                    Group grp1 = new Group(1907, 1903);
+                    {
+                        grp1.setField(new StringField(1903, "MyRegulatoryTradeID"));
+                        grp1.setField(new StringField(1905, "MyRegulatoryTraidIDSource"));
+                        grp1.setField(new IntField(1904, 0));
+                        grp1.setField(new IntField(1906, 0));
+                        grp1.setField(new StringField(2411, "MyRegulatoryLegRefID"));
+                    }
+                    tcr.addGroup(grp1);
+                }
+                */
+
+                tcr.set(new PreviouslyReported(false));
+                tcr.setField(new StringField(1300, "MarketSegmentID_QS"));
+                tcr.setField(new StringField(1301, "MyMarketID"));
+                tcr.set(new Symbol("EURTHB"));
+                tcr.set(new Product(4));
+                tcr.set(new SecurityType("FXSPOT"));
+                tcr.set(new LastPx((new Random()).nextDouble()));
+                tcr.setField(new StringField(15, "EUR")); // why can't set CURRENCY as native variable?
+                tcr.setField(new StringField(120, "THB")); // why can't set SETTLE_CURRENCY as native variable?
+
+                if (tcr.get(new SecurityType()).equals("FXFWD"))
+                {
+                    tcr.set(new LastSpotRate((new Random()).nextDouble()));
+                    tcr.set(new LastForwardPoints((new Random()).nextDouble()));
+                }
+
+                //tcr.setField() (BuildDate(2019, 11, 15).toString()));
+                tcr.set(new TradeDate(ToString(BuildDate(2019,11,15), "yyyymmdd")));
+                tcr.set(new TransactTime());
+
+                // Legs
+                tcr.setInt(555, 1);
+                {
+                    Group grpLeg = new Group(555, 600);
+                    {
+                        grpLeg.setString(600, "EURTHB");
+                        grpLeg.setInt(604, 1);
+                        {
+                            Group grpLegSecAltD = new Group(604, 605);
+                            {
+                                grpLegSecAltD.setString(605, "MyISIN");
+                                grpLegSecAltD.setString(606, "This is 4");
+                            }
+                            grpLeg.addGroup(grpLegSecAltD);
+                        }
+                        grpLeg.setInt(624, 1);
+                        grpLeg.setString(1788, "A");
+                    }
+                    tcr.addGroup(grpLeg);
+                }
+
+                // side
+                tcr.setInt(552, 2);
+                {
+                    Group grpBuy = new Group(552, 54);
+                    {
+                        grpBuy.setChar(54, '1');
+                        grpBuy.setInt(453, 1);
+                        {
+                            Group grpParty = new Group(453, 448);
+                            {
+                                grpParty.setString(448, "MyPartyID");
+                                grpParty.setString(447, "D");
+                                grpParty.setString(452, "1");
+                            }
+                        }
+                        grpBuy.setString(1, "MyAccount");
+                    }
+                    tcr.addGroup(grpBuy);
+
+                    Group grpSell = new Group(552, 54);
+                    {
+                        grpSell.setChar(54, '2');
+                        grpSell.setInt(453, 1);
+                        {
+                            Group grpParty = new Group(453, 448);
+                            {
+                                grpParty.setString(448, "MyPartyID");
+                                grpParty.setString(447, "G");
+                                grpParty.setString(452, "102");
+                            }
+                            grpSell.setString(1, "MyAccount");
+                        }
+                    }
+                    tcr.addGroup(grpSell);
+                }
             }
 
-
-            accept.set(order.getClOrdID());
-            System.out.println("###Sending Order Acceptance:" + accept.toString() + "sessionID:" + sessionID.toString());
-            Session.sendToTarget(accept, sessionID);
+            System.out.println("###Sending Order Acceptance:" + tcr.toString() + "sessionID:" + sessionID.toString());
+            System.out.println("TCR to XML:\n" + tcr.toXML());
+            Session.sendToTarget(tcr, sessionID);
         } catch (RuntimeException e) {
             LogUtil.logThrowable(sessionID, e.getMessage(), e);
         } catch (FieldNotFound fieldNotFound) {
