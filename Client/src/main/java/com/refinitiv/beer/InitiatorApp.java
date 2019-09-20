@@ -1,15 +1,25 @@
 package com.refinitiv.beer;
 
+import java.util.Scanner;
+
 import com.refinitiv.beer.quickfixj.FixInitiator;
 
 import quickfix.*;
-import quickfix.field.*;
+import quickfix.field.Password;
+import quickfix.field.Username;
+//import quickfix.field.*;
+//import quickfix.fix44.NewOrderSingle;
 import quickfix.fix44.Logon;
-import quickfix.fix44.NewOrderSingle;
-
 
 public class InitiatorApp 
 {
+    public static void promptEnterKey(){
+        System.out.println("Press \"ENTER\" to continue...");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+        scanner.close();
+     }
+     
     public static void main( String[] args )
     {
         SocketInitiator socketInitiator = null;
@@ -28,36 +38,22 @@ public class InitiatorApp
 
             Logon logon = new Logon();
             logon.set(new quickfix.field.HeartBtInt(30));
-            logon.set(new quickfix.field.ResetSeqNumFlag(true));
+            //logon.set(new quickfix.field.ResetSeqNumFlag(false));
+            logon.setBoolean(141, false);
+            logon.set(new Username("MyUserName"));
+            logon.set(new Password("MyPassword"));
             logon.set(new quickfix.field.EncryptMethod(0));
+
+            System.out.println("Logon: " + logon.toString());
             try {
                 Session.sendToTarget(logon, sessionId);
             } catch (SessionNotFound sessionNotFound) {
                 sessionNotFound.printStackTrace();
             }
 
-            for(int j = 0; j < 100; j ++){
-                try {
-                    Thread.sleep(10000);
-                    NewOrderSingle newOrderSingle = new NewOrderSingle();
-                    {
-                        newOrderSingle.set(new ClOrdID("456"));
-                        newOrderSingle.set(new HandlInst('3'));
-                        newOrderSingle.set(new Symbol("MY_SYMBOL"));
-                        newOrderSingle.set(new Side(Side.BUY));
-                        newOrderSingle.set(new TransactTime());
-                        newOrderSingle.set(new OrdType(OrdType.MARKET));
-                    }
-
-                    System.out.println("####New Order Sent :" + newOrderSingle.toString());
-                    Session.sendToTarget(newOrderSingle, sessionId);
-
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (SessionNotFound sessionNotFound) {
-                    sessionNotFound.printStackTrace();
-                }
-            }
+            promptEnterKey();
+            
+            socketInitiator.stop();
         }
         catch(Exception e)
         {

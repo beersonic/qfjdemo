@@ -16,6 +16,8 @@ import quickfix.fix44.TradeCaptureReport;
 
 public class FixAcceptor extends MessageCracker implements Application
 {
+    boolean m_isConnected = false;
+    long m_tradeId = 0;
     @Override
     public void onCreate(SessionID sessionId) {
         // TODO Auto-generated method stub
@@ -75,8 +77,6 @@ public class FixAcceptor extends MessageCracker implements Application
         System.out.println("###Side" + order.getSide().toString());
         System.out.println("###Type" + order.getOrdType().toString());
         System.out.println("###TransactioTime" + order.getTransactTime().toString());
-
-        sendMessageToClient(order, sessionID);
     }
 
     private Date BuildDate(int year, int month, int day)
@@ -93,34 +93,23 @@ public class FixAcceptor extends MessageCracker implements Application
         DateFormat dateFormat = new SimpleDateFormat(format);
         return dateFormat.format(d);
     }
-    private void sendMessageToClient(NewOrderSingle order, SessionID sessionID) {
+
+    public void sendMessageToClient(SessionID sessionID)
+    {
         try 
         {
             TradeCaptureReport tcr = new TradeCaptureReport();
             {
                 tcr.set(new TradeReportID("MyTradeReportId"));
-                tcr.setField(new StringField(1003, "MyTradeId"));
+                tcr.setField(new StringField(1003, Long.toString(m_tradeId++)));
                 tcr.set(new ExecType(ExecType.TRADE));
 
+                tcr.set(new Symbol("EURTHB"));
                 /*
-                tcr.setInt(1907, 1);
-                {
-                    Group grp1 = new Group(1907, 1903);
-                    {
-                        grp1.setField(new StringField(1903, "MyRegulatoryTradeID"));
-                        grp1.setField(new StringField(1905, "MyRegulatoryTraidIDSource"));
-                        grp1.setField(new IntField(1904, 0));
-                        grp1.setField(new IntField(1906, 0));
-                        grp1.setField(new StringField(2411, "MyRegulatoryLegRefID"));
-                    }
-                    tcr.addGroup(grp1);
-                }
-                */
-
                 tcr.set(new PreviouslyReported(false));
                 tcr.setField(new StringField(1300, "MarketSegmentID_QS"));
                 tcr.setField(new StringField(1301, "MyMarketID"));
-                tcr.set(new Symbol("EURTHB"));
+                
                 tcr.set(new Product(4));
                 tcr.set(new SecurityType("FXSPOT"));
                 tcr.set(new LastPx((new Random()).nextDouble()));
@@ -193,6 +182,7 @@ public class FixAcceptor extends MessageCracker implements Application
                     }
                     tcr.addGroup(grpSell);
                 }
+                */
             }
 
             System.out.println("###Sending Order Acceptance:" + tcr.toString() + "sessionID:" + sessionID.toString());
@@ -200,9 +190,12 @@ public class FixAcceptor extends MessageCracker implements Application
             Session.sendToTarget(tcr, sessionID);
         } catch (RuntimeException e) {
             LogUtil.logThrowable(sessionID, e.getMessage(), e);
-        } catch (FieldNotFound fieldNotFound) {
+        } 
+        /*
+        catch (FieldNotFound fieldNotFound) {
             fieldNotFound.printStackTrace();
-        } catch (SessionNotFound sessionNotFound) {
+        } */
+        catch (SessionNotFound sessionNotFound) {
             sessionNotFound.printStackTrace();
         }
     }
