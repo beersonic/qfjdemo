@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 import com.refinitiv.beer.quickfixj.FixInitiator;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import quickfix.*;
 import quickfix.field.Password;
 import quickfix.field.Username;
@@ -13,6 +16,8 @@ import quickfix.fix44.Logon;
 
 public class InitiatorApp 
 {
+    final static Logger logger = LogManager.getLogger();
+    
     public static void promptEnterKey(){
         System.out.println("Press \"ENTER\" to continue...");
         Scanner scanner = new Scanner(System.in);
@@ -44,7 +49,7 @@ public class InitiatorApp
             logon.set(new Password("MyPassword"));
             logon.set(new quickfix.field.EncryptMethod(0));
 
-            System.out.println("Logon: " + logon.toString());
+            logger.info("Logon: " + logon.toString());
             try {
                 Session.sendToTarget(logon, sessionId);
             } catch (SessionNotFound sessionNotFound) {
@@ -57,7 +62,7 @@ public class InitiatorApp
         }
         catch(Exception e)
         {
-            System.out.println("Exception: " + e.getMessage());
+            logger.error("Exception: " + e.getMessage());
         }
     }
 }

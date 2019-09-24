@@ -1,26 +1,25 @@
 package com.refinitiv.beer.quickfixj;
 
-import java.util.logging.LogManager;
-
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import quickfix.*;
 
 public class FixInitiator extends ApplicationAdapter {
-    //final static Logger logger = LogManager.getLogger();
+    final static Logger logger = LogManager.getLogger();
     @Override
     public void onCreate(SessionID sessionId) {
-        System.out.println("onCreate sessionId=" + sessionId.toString());
+        logger.info("onCreate sessionId=" + sessionId.toString());
     }
 
     @Override
     public void onLogon(SessionID sessionId) {
-        System.out.println("onLogon sessionId=" + sessionId.toString());
+        logger.info("onLogon sessionId=" + sessionId.toString());
     }
 
     @Override
     public void onLogout(SessionID sessionId) {
-        System.out.println("onLogout sessionId=" + sessionId.toString());
+        logger.info("onLogout sessionId=" + sessionId.toString());
     }
 
     @Override
@@ -40,35 +39,35 @@ public class FixInitiator extends ApplicationAdapter {
             s = message.getHeader().getString(35);
             if (s.equals("0"))
             {
-                //System.out.println(prefix + ": Heartbeat");
+                //logger.info(prefix + ": Heartbeat");
             }
             else if (s.equals("1"))
             {
-                System.out.println(prefix + ": TestRequest");
+                logger.info(prefix + ": TestRequest");
             }
             else if (s.equals("2"))
             {
-                System.out.println(prefix + ": ResendRequest");
+                logger.info(prefix + ": ResendRequest");
             }
             else if (s.equals("4"))
             {
-                System.out.println(prefix + ": SequenceReset");
+                logger.info(prefix + ": SequenceReset");
             }
             else if (s.equals("3"))
             {
-                System.out.println(prefix + ": SessionLevelReject");
+                logger.info(prefix + ": SessionLevelReject");
             }
             else if (s.equals("5"))
             {
-                System.out.println(prefix + ": Logout");
+                logger.info(prefix + ": Logout");
             }
             else if (s.equals("A"))
             {
-                System.out.println(prefix + ": Logon, message=" + message.toString());
+                logger.info(prefix + ": Logon, message=" + message.toString());
             }
             else
             {
-                System.out.println(prefix + ": sessionId=" + sessionId.toString() + " message=" + message.toString());
+                logger.info(prefix + ": sessionId=" + sessionId.toString() + " message=" + message.toString());
             }
         } catch (FieldNotFound e) {
             // TODO Auto-generated catch block
@@ -86,6 +85,5 @@ public class FixInitiator extends ApplicationAdapter {
     public void fromApp(Message message, SessionID sessionId)
             throws FieldNotFound, IncorrectDataFormat, IncorrectTagValue, UnsupportedMessageType {
         handleCommonMessage("fromApp", message, sessionId);
-        //System.out.println("fromApp sessionId=" + sessionId.toString() + " message=\n" + message.toXML());
     }
 }
