@@ -59,7 +59,7 @@
   		<!--
   			Root (top parent) logger. Currently set for errors and above to go to console and log file
   		-->
-	    <Root level="debug">
+	    <Root level="info">
 	      <AppenderRef ref="Console"/>
 	      <AppenderRef ref="RollingFile"/>
 	    </Root>

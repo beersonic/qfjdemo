@@ -5,11 +5,15 @@ import java.util.Scanner;
 
 import com.refinitiv.beer.quickfixj.*;
 
+import org.apache.logging.log4j.*;
+
 import quickfix.*;
 
 
 public class AcceptorApp 
 {
+    final static Logger logger = LogManager.getLogger();
+
     public static void main( String[] args )
     {
         SocketAcceptor socketAcceptor = null;
@@ -26,15 +30,15 @@ public class AcceptorApp
 
             ArrayList<SessionID> sessions = socketAcceptor.getSessions();
 
-            FIXGeneratorTCR fixGeneratorTCR = new FIXGeneratorTCR(fixAccepter, sessions);
+            FIXGeneratorTCR fixGeneratorTCR = new FIXGeneratorTCR(fixAccepter, sessions, executorSettings);
             fixGeneratorTCR.Start();
 
             promptEnterKey();
 
-            System.out.println("Stopping FIXGeneratorTCR");
+            logger.info("Stopping FIXGeneratorTCR");
             fixGeneratorTCR.Stop();
 
-            System.out.println("Stopping FIXSocketAcceptor");
+            logger.info("Stopping FIXSocketAcceptor");
             socketAcceptor.stop();
         }
         catch(Exception e)
