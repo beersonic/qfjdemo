@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 import quickfix.StringField;
 import quickfix.field.*;
@@ -29,6 +30,20 @@ public class MessageBuilderTCR
         return dateFormat.format(d);
     }
 
+    public String GetRandomMarketSegmentID()
+    {
+        int i = (new Random()).nextInt(10) % 6;
+        switch(i){
+case 0: return "QS";
+case 1: return "QF";
+case 2: return "QR";
+case 3: return "OC";
+case 4: return "OH";
+case 5: return "OE";
+        }
+        return "QS";
+    }
+
     public Message CreateTCR()
     {
         TradeCaptureReport tcr = new TradeCaptureReport();
@@ -38,6 +53,7 @@ public class MessageBuilderTCR
             tcr.set(new ExecType(ExecType.TRADE));
 
             tcr.set(new Symbol("EURTHB"));
+            tcr.setString(1300, GetRandomMarketSegmentID());
             /*
             tcr.set(new PreviouslyReported(false));
             tcr.setField(new StringField(1300, "MarketSegmentID_QS"));

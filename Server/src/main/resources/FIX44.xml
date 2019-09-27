@@ -1492,6 +1492,7 @@
    <field name='CopyMsgIndicator' required='N' />
    <field name='PublishTrdIndicator' required='N' />
    <field name='ShortSaleReason' required='N' />
+   <field name='MarketSegmentID' required='N' />
   </message>
   <message name='OrderMassStatusRequest' msgtype='AF' msgcat='app'>
    <field name='MassStatusReqID' required='Y' />
@@ -6592,6 +6593,7 @@
   <field number='954' name='Nested3PartySubIDType' type='INT' />
   <field number='955' name='LegContractSettlMonth' type='MONTHYEAR' />
   <field number='956' name='LegInterestAccrualDate' type='LOCALMKTDATE' />
+  <field number='1300' name='MarketSegmentID' type='STRING' />
   <field number='1788' name='LegID' type='STRING' />
  </fields>
 </fix>
