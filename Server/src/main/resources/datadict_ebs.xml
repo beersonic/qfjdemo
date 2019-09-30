@@ -101,6 +101,7 @@
 			<field name="TradeLinkID" required="N"/>
 			<field name="TrdMatchID" required="N"/>
 			<field name="ExecID" required="N"/>
+			<field name="ExecRefID" required="N" />
 			<field name="OrdStatus" required="N"/>
 			<field name="SecondaryExecID" required="N"/>
 			<field name="ExecRestatementReason" required="N"/>

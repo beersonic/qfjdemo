@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -15,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import quickfix.DataDictionary;
+import quickfix.Group;
 import quickfix.StringField;
 import quickfix.field.*;
 import quickfix.fix44.Message;
@@ -31,6 +33,20 @@ public class MessageBuilderTCR {
         m_listSampleMsg = new ArrayList<Message>();
 
         LoadSampleMessage();
+    }
+
+    private TradeCaptureReport SetAdditionFields(TradeCaptureReport tcr)
+    {
+        List<Group> g552 = tcr.getGroups(552);
+        g552.forEach((grp ->
+        {
+            grp.setString(11, "MyClOrdID");
+            grp.setString(198, "MySecondaryOrderID");
+        }));
+
+        tcr.setString(19, "MyExecRefID");
+
+        return tcr;
     }
 
     private void LoadSampleMessage() {
@@ -55,7 +71,11 @@ public class MessageBuilderTCR {
                     {
                         TradeCaptureReport tcr = new TradeCaptureReport();
                         tcr.fromString(line, dd, true);
-                        //TradeCaptureReport tcr = (TradeCaptureReport)msg;
+                        
+                        // add missing fields
+                        tcr = SetAdditionFields(tcr);
+
+                        // add to msg list
                         m_listSampleMsg.add(tcr);
 
                         logger.info("read TCR log from file\n" + tcr.toXML());
