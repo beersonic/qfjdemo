@@ -31,14 +31,13 @@ public class InitiatorApp
         try{
             SessionSettings executorSettings = new SessionSettings("./qfj_initiator.cfg");
             {
-                String sid1 = "FIX.4.4:MyClient1->MyAcceptorService1";
-                String sid2 = "FIX.4.4:MyClient2->MyAcceptorService2";
+                String sid1 = "FIX.4.4:MyClient1->MyAcceptorService";
+                String sid2 = "FIX.4.4:MyClient2->MyAcceptorService";
 
                 SessionID sessionId = new SessionID(sid1);
                 quickfix.Dictionary dict = executorSettings.get(sessionId);
                 {
                     dict.setString("SenderCompID", "MyClient2");
-                    dict.setString("TargetCompID", "MyAcceptorService2");
                     dict.setString("FileStorePath", "./Client_Seq_Store2");
                     dict.setString("SocketConnectPort", "12002");
                 }
