@@ -30,6 +30,21 @@ public class InitiatorApp
         SocketInitiator socketInitiator = null;
         try{
             SessionSettings executorSettings = new SessionSettings("./qfj_initiator.cfg");
+            {
+                String sid1 = "FIX.4.4:MyClient1->MyAcceptorService1";
+                String sid2 = "FIX.4.4:MyClient2->MyAcceptorService2";
+
+                SessionID sessionId = new SessionID(sid1);
+                quickfix.Dictionary dict = executorSettings.get(sessionId);
+                {
+                    dict.setString("SenderCompID", "MyClient2");
+                    dict.setString("TargetCompID", "MyAcceptorService2");
+                    dict.setString("FileStorePath", "./Client_Seq_Store2");
+                    dict.setString("SocketConnectPort", "12002");
+                }
+                executorSettings.set(new SessionID(sid2), dict);
+            }
+
             Application application = new FixInitiator();
             FileStoreFactory fileStoreFactory = new FileStoreFactory(executorSettings);
             MessageFactory messageFactory = new DefaultMessageFactory();
@@ -40,21 +55,6 @@ public class InitiatorApp
 
             SessionID sessionId = (SessionID) socketInitiator.getSessions().get(0);
             Session.lookupSession(sessionId).logon();
-
-            Logon logon = new Logon();
-            logon.set(new quickfix.field.HeartBtInt(30));
-            //logon.set(new quickfix.field.ResetSeqNumFlag(false));
-            logon.setBoolean(141, false);
-            logon.set(new Username("MyUserName"));
-            logon.set(new Password("MyPassword"));
-            logon.set(new quickfix.field.EncryptMethod(0));
-
-            logger.info("Logon: " + logon.toString());
-            try {
-                Session.sendToTarget(logon, sessionId);
-            } catch (SessionNotFound sessionNotFound) {
-                sessionNotFound.printStackTrace();
-            }
 
             promptEnterKey();
             
