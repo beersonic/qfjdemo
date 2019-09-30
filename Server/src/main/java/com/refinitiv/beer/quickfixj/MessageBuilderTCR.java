@@ -1,19 +1,77 @@
 package com.refinitiv.beer.quickfixj;
 
+import java.io.File;
+import java.io.FileReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Random;
+import java.util.Scanner;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import quickfix.DataDictionary;
 import quickfix.StringField;
 import quickfix.field.*;
 import quickfix.fix44.Message;
 import quickfix.fix44.TradeCaptureReport;
 
-public class MessageBuilderTCR
-{
+public class MessageBuilderTCR {
+    final static Logger logger = LogManager.getLogger();
     long m_tradeId = 0;
+
+    ArrayList<Message> m_listSampleMsg = null;
+    Iterator<Message> m_iterSample = null;
+
+    public MessageBuilderTCR() {
+        m_listSampleMsg = new ArrayList<Message>();
+
+        LoadSampleMessage();
+    }
+
+    private void LoadSampleMessage() {
+        try {
+            DataDictionary dd = new DataDictionary("./datadict_ebs.xml");
+
+            File file = new File("C:\\DriveD\\CodePTS\\QuickFixJ\\qfjdemo\\Server\\src\\main\\resources\\tcr_ebs.txt");
+            if (file.exists())
+            {
+                Scanner sc = new Scanner(file);
+
+                final String NEW_LINE = System.getProperty("line.separator");
+                while (sc.hasNextLine()) {
+                    String line = sc.nextLine();
+                    Message msg = new Message();
+
+                    line = line.replace(NEW_LINE, "");
+                    msg.fromString(line, dd, true);
+
+                    String tempStr = msg.getHeader().getString(35);
+                    if (tempStr.equals("AE"))
+                    {
+                        TradeCaptureReport tcr = new TradeCaptureReport();
+                        tcr.fromString(line, dd, true);
+                        //TradeCaptureReport tcr = (TradeCaptureReport)msg;
+                        m_listSampleMsg.add(tcr);
+
+                        logger.info("read TCR log from file\n" + tcr.toXML());
+
+                    }
+                }
+                m_iterSample = m_listSampleMsg.iterator();
+
+                sc.close();
+            }
+        }
+        catch(Exception e)
+        {
+            logger.error(e);
+        }
+    }
 
     private Date BuildDate(int year, int month, int day)
     {
@@ -34,17 +92,26 @@ public class MessageBuilderTCR
     {
         int i = (new Random()).nextInt(10) % 6;
         switch(i){
-case 0: return "QS";
-case 1: return "QF";
-case 2: return "QR";
-case 3: return "OC";
-case 4: return "OH";
-case 5: return "OE";
+        case 0: return "QS";
+        case 1: return "QF";
+        case 2: return "QR";
+        case 3: return "OC";
+        case 4: return "OH";
+        case 5: return "OE";
         }
         return "QS";
     }
 
-    public Message CreateTCR()
+    private Message CreateTCRFromSample()
+    {
+        if (!m_iterSample.hasNext())
+        {
+            m_iterSample = m_listSampleMsg.iterator();
+        }
+        return m_iterSample.next();
+    }
+
+    private Message CreateTCRFromScratch()
     {
         TradeCaptureReport tcr = new TradeCaptureReport();
         {
@@ -54,85 +121,20 @@ case 5: return "OE";
 
             tcr.set(new Symbol("EURTHB"));
             tcr.setString(1300, GetRandomMarketSegmentID());
-            /*
-            tcr.set(new PreviouslyReported(false));
-            tcr.setField(new StringField(1300, "MarketSegmentID_QS"));
-            tcr.setField(new StringField(1301, "MyMarketID"));
             
-            tcr.set(new Product(4));
-            tcr.set(new SecurityType("FXSPOT"));
-            tcr.set(new LastPx((new Random()).nextDouble()));
-            tcr.setField(new StringField(15, "EUR")); // why can't set CURRENCY as native variable?
-            tcr.setField(new StringField(120, "THB")); // why can't set SETTLE_CURRENCY as native variable?
-
-            if (tcr.get(new SecurityType()).equals("FXFWD"))
-            {
-                tcr.set(new LastSpotRate((new Random()).nextDouble()));
-                tcr.set(new LastForwardPoints((new Random()).nextDouble()));
-            }
-
-            //tcr.setField() (BuildDate(2019, 11, 15).toString()));
-            tcr.set(new TradeDate(ToString(BuildDate(2019,11,15), "yyyymmdd")));
-            tcr.set(new TransactTime());
-
-            // Legs
-            tcr.setInt(555, 1);
-            {
-                Group grpLeg = new Group(555, 600);
-                {
-                    grpLeg.setString(600, "EURTHB");
-                    grpLeg.setInt(604, 1);
-                    {
-                        Group grpLegSecAltD = new Group(604, 605);
-                        {
-                            grpLegSecAltD.setString(605, "MyISIN");
-                            grpLegSecAltD.setString(606, "This is 4");
-                        }
-                        grpLeg.addGroup(grpLegSecAltD);
-                    }
-                    grpLeg.setInt(624, 1);
-                    grpLeg.setString(1788, "A");
-                }
-                tcr.addGroup(grpLeg);
-            }
-
-            // side
-            tcr.setInt(552, 2);
-            {
-                Group grpBuy = new Group(552, 54);
-                {
-                    grpBuy.setChar(54, '1');
-                    grpBuy.setInt(453, 1);
-                    {
-                        Group grpParty = new Group(453, 448);
-                        {
-                            grpParty.setString(448, "MyPartyID");
-                            grpParty.setString(447, "D");
-                            grpParty.setString(452, "1");
-                        }
-                    }
-                    grpBuy.setString(1, "MyAccount");
-                }
-                tcr.addGroup(grpBuy);
-
-                Group grpSell = new Group(552, 54);
-                {
-                    grpSell.setChar(54, '2');
-                    grpSell.setInt(453, 1);
-                    {
-                        Group grpParty = new Group(453, 448);
-                        {
-                            grpParty.setString(448, "MyPartyID");
-                            grpParty.setString(447, "G");
-                            grpParty.setString(452, "102");
-                        }
-                        grpSell.setString(1, "MyAccount");
-                    }
-                }
-                tcr.addGroup(grpSell);
-            }
-            */
         }
         return (Message)tcr;
+    }
+
+    public Message CreateTCR()
+    {
+        if (m_listSampleMsg.isEmpty())
+        {
+            return CreateTCRFromScratch();
+        }
+        else
+        {
+            return CreateTCRFromSample();
+        }
     }
 }
