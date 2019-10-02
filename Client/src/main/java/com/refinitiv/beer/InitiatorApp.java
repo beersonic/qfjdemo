@@ -1,8 +1,10 @@
 package com.refinitiv.beer;
 
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,7 +28,8 @@ import quickfix.SocketInitiator;
 
 public class InitiatorApp {
     final static Logger logger = LogManager.getLogger();
-    static HashMap<Integer, SocketInitiator> m_dictIdAndClient = null;
+    static HashMap<Integer, SocketInitiator> c_dictIdAndClient = null;
+    static boolean c_okToRun = false;
 
     public static void promptEnterKey() {
         System.out.println("Press \"ENTER\" to continue...");
@@ -35,27 +38,62 @@ public class InitiatorApp {
         scanner.close();
     }
 
-    public static void ReceiveCommand() {
+    public static boolean RegexMatch(String pattern, String input, ArrayList<String> matchedTokens)
+    {
+        return RegexMatch(pattern, input, matchedTokens, true);
+    }
+    public static boolean RegexMatch(String pattern, String input, ArrayList<String> matchedTokens, Boolean caseSensitive)
+    {
+        Pattern rx = (caseSensitive)
+                    ? Pattern.compile(pattern)
+                    : Pattern.compile(pattern, Pattern.CASE_INSENSITIVE) ;
+        Matcher matcher = rx.matcher(input);
+
+        boolean isMatch = false;
+        if (matchedTokens != null) // require catpured string
+        {
+            while(matcher.find())
+            {
+                isMatch = true;
+                
+                matchedTokens.add(matcher.group(1));
+            }
+        }
+        else
+        {
+            isMatch = matcher.find();
+        }
+
+        return isMatch;
+    }
+    
+    public static void ReceiveCommand() throws RuntimeError, ConfigError {
         System.out.print("Enter command: ");
         Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
-        String s = scanner.toString();
+        String line = scanner.nextLine();
+        scanner.close();
 
-        Pattern rx = Pattern.compile("start \\d+");
-        Matcher matcher = rx.matcher(s);
-        if (matcher.find())
+        ArrayList<String> regexMatchTokens = new ArrayList<String>();
+        if (RegexMatch("exit", line, null, false))
         {
-            int id = Integer.parseInt(matcher.group(0));
-        }  
-        if (s.matches("start \\d+"))
+            c_okToRun = false;
+            logger.info("Exit program");
+        }     
+        else if (RegexMatch("start\\s*(\\d+)", line, regexMatchTokens))
         {
-            
-        }
+            int id = Integer.parseInt(regexMatchTokens.get(0));
+            StartInitiator(id);
+        }   
     }
 
     public static void main(String[] args) {
         try {
-
+            c_okToRun = true;
+            c_dictIdAndClient = new HashMap<Integer, SocketInitiator>();
+            while(c_okToRun)
+            {
+                ReceiveCommand();
+            }
         } catch (Exception e) {
             logger.error("Exception: " + e.getMessage());
         }
@@ -63,25 +101,17 @@ public class InitiatorApp {
 
     private static void StartInitiator(int id) throws RuntimeError, ConfigError
     {
-        m_dictIdAndClient = new HashMap<Integer, SocketInitiator>();
-
         SocketInitiator socketInitiator = CreateInitiator("FIX.4.4", "MyClient" + id, "MyAcceptorService");
         socketInitiator.start();
 
-        /*
-        SessionID sessionId = (SessionID) socketInitiator.getSessions().get(0);
-        Session.lookupSession(sessionId).logon();
-*/
-        promptEnterKey();
-        
-        socketInitiator.stop();
+        c_dictIdAndClient.put(id, socketInitiator);
     }
 
     private static void StopInitiator(int id)
     {
-        if (m_dictIdAndClient.containsKey(id))
+        if (c_dictIdAndClient.containsKey(id))
         {
-            m_dictIdAndClient.get(id).stop();
+            c_dictIdAndClient.get(id).stop();
         }
         else
         {
