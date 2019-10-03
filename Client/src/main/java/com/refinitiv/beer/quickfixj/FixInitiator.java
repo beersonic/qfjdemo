@@ -77,7 +77,7 @@ public class FixInitiator extends ApplicationAdapter {
                 }
             }
         } catch (FieldNotFound e) {
-            // TODO Auto-generated catch block
+            logger.error(e);
             e.printStackTrace();
         }
     }
