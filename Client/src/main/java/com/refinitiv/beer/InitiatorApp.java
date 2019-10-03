@@ -1,10 +1,11 @@
 package com.refinitiv.beer;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,7 +22,6 @@ import quickfix.FileLogFactory;
 import quickfix.FileStoreFactory;
 import quickfix.MessageFactory;
 import quickfix.RuntimeError;
-import quickfix.Session;
 import quickfix.SessionID;
 import quickfix.SessionSettings;
 import quickfix.SocketInitiator;
@@ -38,40 +38,41 @@ public class InitiatorApp {
         scanner.close();
     }
 
-    public static boolean RegexMatch(String pattern, String input, ArrayList<String> matchedTokens)
-    {
+    public static boolean RegexMatch(String pattern, String input, ArrayList<String> matchedTokens) {
         return RegexMatch(pattern, input, matchedTokens, true);
     }
-    public static boolean RegexMatch(String pattern, String input, ArrayList<String> matchedTokens, Boolean caseSensitive)
-    {
-        Pattern rx = (caseSensitive)
-                    ? Pattern.compile(pattern)
-                    : Pattern.compile(pattern, Pattern.CASE_INSENSITIVE) ;
+
+    public static boolean RegexMatch(String pattern, String input, ArrayList<String> matchedTokens,
+            Boolean caseSensitive) {
+        Pattern rx = (caseSensitive) ? Pattern.compile(pattern) : Pattern.compile(pattern, Pattern.CASE_INSENSITIVE);
         Matcher matcher = rx.matcher(input);
 
         boolean isMatch = false;
         if (matchedTokens != null) // require catpured string
         {
-            while(matcher.find())
-            {
+            while (matcher.find()) {
                 isMatch = true;
-                
+
                 matchedTokens.add(matcher.group(1));
             }
-        }
-        else
-        {
+        } else {
             isMatch = matcher.find();
         }
 
         return isMatch;
     }
-    
-    public static void ReceiveCommand() throws RuntimeError, ConfigError {
+
+    public static void ReceiveCommand() throws RuntimeError, ConfigError, IOException {
         System.out.print("Enter command: ");
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String line = reader.readLine();
+        
+        /*
         Scanner scanner = new Scanner(System.in);
         String line = scanner.nextLine();
         scanner.close();
+*/
 
         ArrayList<String> regexMatchTokens = new ArrayList<String>();
         if (RegexMatch("exit", line, null, false))
@@ -84,6 +85,11 @@ public class InitiatorApp {
             int id = Integer.parseInt(regexMatchTokens.get(0));
             StartInitiator(id);
         }   
+        else if (RegexMatch("stop\\s*(\\d+)", line, regexMatchTokens))
+        {
+            int id = Integer.parseInt(regexMatchTokens.get(0));
+            StopInitiator(id);
+        }
     }
 
     public static void main(String[] args) {
@@ -101,21 +107,29 @@ public class InitiatorApp {
 
     private static void StartInitiator(int id) throws RuntimeError, ConfigError
     {
-        SocketInitiator socketInitiator = CreateInitiator("FIX.4.4", "MyClient" + id, "MyAcceptorService");
-        socketInitiator.start();
+        SocketInitiator fixClient = CreateInitiator(id);
+        fixClient.start();
 
-        c_dictIdAndClient.put(id, socketInitiator);
+        c_dictIdAndClient.put(id, fixClient);
     }
 
-    private static void StopInitiator(int id)
+    private static void StopInitiator(int id) 
     {
-        if (c_dictIdAndClient.containsKey(id))
+        try
         {
-            c_dictIdAndClient.get(id).stop();
+            if (c_dictIdAndClient.containsKey(id))
+            {
+                SocketInitiator fixClient = c_dictIdAndClient.get(id);
+                fixClient.stop();
+            }
+            else
+            {
+                logger.warn("Ask stop with invalid id, " + id);
+            }
         }
-        else
+        catch(Exception e)
         {
-            logger.warn("Ask stop with invalid id, " + id);
+            logger.error(e);
         }
     }
     static SessionID ExtractSessionIDFromDictionary(quickfix.Dictionary dict) throws ConfigError, FieldConvertError
@@ -124,7 +138,7 @@ public class InitiatorApp {
         return new SessionID(s);
     }
 
-    static SessionSettings InitializeSessionSettings() throws ConfigError, FieldConvertError {
+    static SessionSettings InitializeSessionSettings(int clientId) throws ConfigError, FieldConvertError {
      
         SessionSettings sessionSettings = new SessionSettings();
         {
@@ -136,11 +150,11 @@ public class InitiatorApp {
                 dict.setString("ResetOnLogon", "N");
                 dict.setString("FileLogPath", "./Client_Logs");
                 dict.setString("ValidateIncomingMessage", "N");
-                dict.setString("FileStorePath", "./Client_Seq_Store1");
+                dict.setString("FileStorePath", "./Client_Seq_Store" + clientId);
 
                 // session id
                 dict.setString("BeginString", "FIX.4.4");
-                dict.setString("SenderCompID", "MyClient1");
+                dict.setString("SenderCompID", "MyClient" + clientId);
                 dict.setString("TargetCompID", "MyAcceptorService");
                 
                 // operating time
@@ -152,7 +166,7 @@ public class InitiatorApp {
                 // connection
                 dict.setString("CheckLatency", "N");
                 dict.setString("HeartBtInt", "10");
-                dict.setString("SocketConnectPort", "12001");
+                dict.setString("SocketConnectPort", "1200" + clientId);
                 dict.setString("SocketConnectHost", "127.0.0.1");
 
                 // dictionary
@@ -166,11 +180,11 @@ public class InitiatorApp {
         return sessionSettings;
     }
 
-    public static SocketInitiator CreateInitiator(String fixVersionAsBeginString, String senderCompID, String targetCompID)
+    public static SocketInitiator CreateInitiator(int id)
     {
         SocketInitiator socketInitiator = null;
         try {
-            SessionSettings executorSettings = InitializeSessionSettings();
+            SessionSettings executorSettings = InitializeSessionSettings(id);
             
             Application application = new FixInitiator();
             FileStoreFactory fileStoreFactory = new FileStoreFactory(executorSettings);

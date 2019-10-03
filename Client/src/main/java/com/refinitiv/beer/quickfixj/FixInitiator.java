@@ -70,7 +70,7 @@ public class FixInitiator extends ApplicationAdapter {
                 logger.info(prefix + ": sessionId=" + sessionId.toString() + " message=" + message.toString());
             }
         } catch (FieldNotFound e) {
-            // TODO Auto-generated catch block
+            logger.error(e);
             e.printStackTrace();
         }
     }
