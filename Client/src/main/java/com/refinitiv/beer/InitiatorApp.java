@@ -77,9 +77,14 @@ public class InitiatorApp {
         ArrayList<String> regexMatchTokens = new ArrayList<String>();
         if (RegexMatch("exit", line, null, false))
         {
+            StopAllInitiator();
             c_okToRun = false;
             logger.info("Exit program");
         }     
+        else if (RegexMatch("stopall", line, null, false))
+        {
+            StopAllInitiator();
+        }
         else if (RegexMatch("start\\s*(\\d+)", line, regexMatchTokens))
         {
             int id = Integer.parseInt(regexMatchTokens.get(0));
@@ -113,12 +118,20 @@ public class InitiatorApp {
         c_dictIdAndClient.put(id, fixClient);
     }
 
+    private static void StopAllInitiator()
+    {
+        c_dictIdAndClient.forEach( (k,v)->
+        {
+            StopInitiator(k);
+        });
+    }
     private static void StopInitiator(int id) 
     {
         try
         {
             if (c_dictIdAndClient.containsKey(id))
             {
+                logger.info("Stop initiator id=" + id);
                 SocketInitiator fixClient = c_dictIdAndClient.get(id);
                 fixClient.stop();
             }
