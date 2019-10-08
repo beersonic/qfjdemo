@@ -101,6 +101,10 @@ public class InitiatorApp {
         try {
             c_okToRun = true;
             c_dictIdAndClient = new HashMap<Integer, SocketInitiator>();
+
+            // auto start client1
+            StartInitiator(1);
+
             while(c_okToRun)
             {
                 ReceiveCommand();

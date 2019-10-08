@@ -55,7 +55,7 @@ public class FixInitiator extends ApplicationAdapter {
             } else if (s.equals("A")) {
                 logger.info(prefix + ": Logon, message=" + message.toString());
             } else {
-                logger.info(prefix + ": sessionId=" + sessionId.toString() + " message=" + message.toString());
+                logger.info(prefix + ": sessionId=" + sessionId.toString() + " message=" + message.toXML());
 
                 if (s.equals("AE")) {
                     List<Group> groups = message.getGroups(552);

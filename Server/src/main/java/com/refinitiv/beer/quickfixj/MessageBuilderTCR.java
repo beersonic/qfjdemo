@@ -64,6 +64,10 @@ public class MessageBuilderTCR {
                     ++i;
 
                     String line = sc.nextLine();
+                    if (line.equals("break"))
+                    {
+                        break;
+                    }
                     Message msg = new Message();
 
                     line = line.replace(NEW_LINE, "");
