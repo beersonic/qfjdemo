@@ -35,16 +35,16 @@ public class MessageBuilderTCR {
         LoadSampleMessage();
     }
 
-    private TradeCaptureReport SetAdditionFields(TradeCaptureReport tcr)
+    private TradeCaptureReport SetAdditionFields(TradeCaptureReport tcr, int msgIndex)
     {
         List<Group> g552 = tcr.getGroups(552);
         g552.forEach((grp ->
         {
-            grp.setString(11, "MyClOrdID");
-            grp.setString(198, "MySecondaryOrderID");
+            grp.setString(11, "MyClOrdID_" + msgIndex);
+            grp.setString(198, "MySecondaryOrderID_" + msgIndex);
         }));
 
-        tcr.setString(19, "MyExecRefID");
+        tcr.setString(19, "ExecRefID_" + msgIndex);
 
         return tcr;
     }
@@ -59,7 +59,10 @@ public class MessageBuilderTCR {
                 Scanner sc = new Scanner(file);
 
                 final String NEW_LINE = System.getProperty("line.separator");
+                int i = 0;
                 while (sc.hasNextLine()) {
+                    ++i;
+
                     String line = sc.nextLine();
                     Message msg = new Message();
 
@@ -73,7 +76,7 @@ public class MessageBuilderTCR {
                         tcr.fromString(line, dd, true);
                         
                         // add missing fields
-                        tcr = SetAdditionFields(tcr);
+                        tcr = SetAdditionFields(tcr, i);
 
                         // add to msg list
                         m_listSampleMsg.add(tcr);
