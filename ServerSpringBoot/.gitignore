@@ -1,8 +1,10 @@
 HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
 !**/src/test/**
+logs
 
 ### STS ###
 .apt_generated
@@ -18,6 +20,7 @@ target/
 *.iws
 *.iml
 *.ipr
+out/
 
 ### NetBeans ###
 /nbproject/private/
@@ -25,7 +28,11 @@ target/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
 
 ### VS Code ###
 .vscode/
+
+### FIX ###
+Client_Seq_Store*
+Client_Logs
+/*.log

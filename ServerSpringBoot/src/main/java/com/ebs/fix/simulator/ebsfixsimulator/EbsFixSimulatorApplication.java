@@ -1,13 +1,13 @@
-package com.refinitiv.pts.qfjserver;
+package com.ebs.fix.simulator.ebsfixsimulator;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoApplication {
+public class EbsFixSimulatorApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(EbsFixSimulatorApplication.class, args);
 	}
 
 }
