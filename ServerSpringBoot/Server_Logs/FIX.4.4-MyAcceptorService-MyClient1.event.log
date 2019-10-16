@@ -1,0 +1,26 @@
+20191016-07:53:37: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191016-07:53:37: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191016-08:00:05: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191016-08:00:05: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191016-08:00:44: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:64528
+20191016-08:00:44: Acceptor heartbeat set to 30 seconds
+20191016-08:00:44: Disconnecting: Invalid Logon message: Tag not defined for this message type, field=554
+20191016-08:00:49: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:64549
+20191016-08:00:49: Acceptor heartbeat set to 5 seconds
+20191016-08:00:49: Received logon
+20191016-08:00:49: Responding to Logon request
+20191016-08:00:49: MsgSeqNum too high, expecting 2 but received 3: 8=FIX.4.49=8035=A34=349=MyClient152=20191016-08:00:49.85056=MyAcceptorService98=0108=510=246
+20191016-08:00:49: Enqueued at pos 3: 8=FIX.4.49=8035=A34=349=MyClient152=20191016-08:00:49.85056=MyAcceptorService98=0108=510=246
+20191016-08:00:49: Sent ResendRequest FROM: 2 TO: 2
+20191016-08:00:49: Enqueued at pos 4: 8=FIX.4.49=7835=234=449=MyClient152=20191016-08:00:49.85856=MyAcceptorService7=116=010=135
+20191016-08:00:49: Received ResendRequest FROM: 1 TO: infinity
+20191016-08:00:49: Resending message: 1
+20191016-08:00:49: Resending message: 2
+20191016-08:00:49: Resending message: 3
+20191016-08:00:49: Resending message: 4
+20191016-08:00:49: Sent SequenceReset TO: 6
+20191016-08:00:49: Resending message: 6
+20191016-08:00:49: Sent SequenceReset TO: 9
+20191016-08:00:49: ResendRequest for messages FROM 2 TO 2 has been satisfied.
+20191016-08:00:49: Received SequenceReset FROM: 2 TO: 5
+20191016-08:01:00: Disconnecting: Socket exception (/127.0.0.1:64549): java.io.IOException: An existing connection was forcibly closed by the remote host

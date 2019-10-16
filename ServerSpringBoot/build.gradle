@@ -4,15 +4,76 @@ plugins {
 	id 'java'
 }
 
-group = 'com.ebs.fix.simulator'
+group = 'com.refinitiv.pts'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
 repositories {
-	mavenCentral()
+
+//	mavenCentral()
+
+	maven {
+		url("https://bams-aws.refinitiv.com/artifactory/public.maven.global/")
+		credentials {
+			username = "s.pts.robot"
+			password = "AKCp5buTmaFazQj8VN7fg2wPbb5TLcf6YranN8RxsFkAfCYw9TAywS3ThHFGeS72vkxDSXtNa"
+		}
+	}
+
+	maven {
+		url("https://bams-aws.refinitiv.com/artifactory/ext-release.maven.global/")
+		credentials {
+			username = "s.pts.robot"
+			password = "AKCp5buTmaFazQj8VN7fg2wPbb5TLcf6YranN8RxsFkAfCYw9TAywS3ThHFGeS72vkxDSXtNa"
+		}
+	}
+
+	maven {
+		url("https://bams-aws.refinitiv.com/artifactory/release.maven.global/")
+		credentials {
+			username = "s.pts.robot"
+			password = "AKCp5buTmaFazQj8VN7fg2wPbb5TLcf6YranN8RxsFkAfCYw9TAywS3ThHFGeS72vkxDSXtNa"
+		}
+	}
+
+	maven {
+		url("https://bams-aws.refinitiv.com/artifactory/jcenter/")
+		credentials {
+			username = "s.pts.robot"
+			password = "AKCp5buTmaFazQj8VN7fg2wPbb5TLcf6YranN8RxsFkAfCYw9TAywS3ThHFGeS72vkxDSXtNa"
+		}
+	}
+
+	maven {
+		url("https://bams-aws.refinitiv.com/artifactory/snapshot.maven.local/")
+		credentials {
+			username = "s.pts.robot"
+			password = "AKCp5buTmaFazQj8VN7fg2wPbb5TLcf6YranN8RxsFkAfCYw9TAywS3ThHFGeS72vkxDSXtNa"
+		}
+	}
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// Spring
+	implementation ('org.springframework.boot:spring-boot-starter-web:2.1.9.RELEASE') {
+		exclude module: "spring-boot-starter-logging"	// To enable LOG4J2
+//		exclude module: "logback-classic"
+//		exclude module: "log4j-over-slf4j"
+	}
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:2.1.9.RELEASE'
+
+	// Lombox
+	compileOnly 'org.projectlombok:lombok:1.18.8'
+	annotationProcessor 'org.projectlombok:lombok:1.18.8'
+
+	// QuickFIX/J
+	implementation 'org.quickfixj:quickfixj-all:2.1.1'
+
+	// logging
+	implementation 'org.apache.logging.log4j:log4j-api:2.12.1'
+	implementation 'org.apache.logging.log4j:log4j-core:2.12.1'
+	implementation 'org.springframework.boot:spring-boot-starter-log4j2:2.1.9.RELEASE'
+
+	implementation 'org.apache.commons:commons-lang3:3.9'
 }
