@@ -24,3 +24,15 @@
 20191016-08:00:49: ResendRequest for messages FROM 2 TO 2 has been satisfied.
 20191016-08:00:49: Received SequenceReset FROM: 2 TO: 5
 20191016-08:01:00: Disconnecting: Socket exception (/127.0.0.1:64549): java.io.IOException: An existing connection was forcibly closed by the remote host
+20191016-08:29:40: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191016-08:29:40: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191016-08:32:44: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191016-08:32:44: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191016-08:34:36: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191016-08:34:36: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191016-08:35:58: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191016-08:35:58: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191016-08:40:01: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191016-08:40:01: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191016-08:41:14: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191016-08:41:14: Created session: FIX.4.4:MyAcceptorService->MyClient1

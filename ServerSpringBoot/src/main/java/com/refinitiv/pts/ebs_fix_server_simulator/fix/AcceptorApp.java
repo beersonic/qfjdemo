@@ -13,7 +13,7 @@ public class AcceptorApp {
     @Autowired
     private FixAcceptor fixAcceptor;
 
-    public void init() {
+    public void start() {
         try {
             SessionSettings executorSettings = new SessionSettings("qfj_acceptor.cfg");
             FileStoreFactory fileStoreFactory = new FileStoreFactory(executorSettings);

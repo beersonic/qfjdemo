@@ -36,3 +36,6 @@ out/
 Client_Seq_Store*
 Client_Logs
 /*.log
+Server_Seq_Store*
+Server_Logs
+/*.log
