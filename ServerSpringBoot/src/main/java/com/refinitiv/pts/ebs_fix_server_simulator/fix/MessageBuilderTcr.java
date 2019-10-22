@@ -11,9 +11,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+import org.springframework.stereotype.Component;
+
 import lombok.extern.log4j.Log4j2;
+import quickfix.ConfigError;
 import quickfix.DataDictionary;
 import quickfix.Group;
+import quickfix.InvalidMessage;
 import quickfix.StringField;
 import quickfix.field.ExecType;
 import quickfix.field.Symbol;
@@ -22,22 +26,25 @@ import quickfix.fix44.Message;
 import quickfix.fix44.TradeCaptureReport;
 
 @Log4j2
+@Component
 public class MessageBuilderTcr {
     long m_tradeId = 0;
 
-    ArrayList<Message> m_listSampleMsg = null;
+    ArrayList<Message> m_listSampleMsg;
     Iterator<Message> m_iterSample = null;
+    DataDictionary m_dictionary = null;
 
-    public MessageBuilderTcr() {
-        m_listSampleMsg = new ArrayList<Message>();
+    public MessageBuilderTcr() throws ConfigError {
+        m_listSampleMsg = new ArrayList<>();
+
+        m_dictionary = new DataDictionary("datadict_ebs.xml");
 
         loadSampleMessage();
     }
 
     private TradeCaptureReport setAdditionFields(TradeCaptureReport tcr, int msgIndex) {
         List<Group> g552 = tcr.getGroups(552);
-        g552.forEach((grp ->
-        {
+        g552.forEach((grp -> {
             grp.setString(11, "MyClOrdID_" + msgIndex);
             grp.setString(198, "MySecondaryOrderID_" + msgIndex);
         }));
@@ -47,10 +54,15 @@ public class MessageBuilderTcr {
         return tcr;
     }
 
+    public Message fromString(String rawFIXMessage) throws InvalidMessage
+    {
+        Message msg = new Message();
+        msg.fromString(rawFIXMessage, m_dictionary, true);
+        return msg;
+    }
+
     private void loadSampleMessage() {
         try {
-            DataDictionary dd = new DataDictionary("datadict_ebs.xml");
-
             File file = new File("src/main/resources/tcr_ebs.txt");
             if (file.exists()) {
                 Scanner sc = new Scanner(file);
@@ -67,12 +79,12 @@ public class MessageBuilderTcr {
                     Message msg = new Message();
 
                     line = line.replace(NEW_LINE, "");
-                    msg.fromString(line, dd, true);
+                    msg.fromString(line, m_dictionary, true);
 
                     String tempStr = msg.getHeader().getString(35);
                     if (tempStr.equals("AE")) {
                         TradeCaptureReport tcr = new TradeCaptureReport();
-                        tcr.fromString(line, dd, true);
+                        tcr.fromString(line, m_dictionary, true);
 
                         // add missing fields
                         tcr = setAdditionFields(tcr, i);

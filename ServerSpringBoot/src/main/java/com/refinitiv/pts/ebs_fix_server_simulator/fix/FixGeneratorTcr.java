@@ -1,19 +1,27 @@
 package com.refinitiv.pts.ebs_fix_server_simulator.fix;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import lombok.extern.log4j.Log4j2;
 import quickfix.ConfigError;
 import quickfix.DefaultSessionScheduleFactory;
+import quickfix.InvalidMessage;
 import quickfix.SessionID;
 import quickfix.SessionSchedule;
 import quickfix.SessionScheduleFactory;
 import quickfix.SessionSettings;
+import quickfix.fix44.Message;
 
 @Log4j2
+@Component
 public class FixGeneratorTcr {
+    @Autowired
+    MessageBuilderTcr messageBuilderTcr;
+
     FixAcceptor m_fixAcceptor;
 
     boolean m_isDone = true;
@@ -22,7 +30,7 @@ public class FixGeneratorTcr {
     SessionSettings m_sessionSettings = null;
     HashMap<String, SessionSchedule> m_mapSessionToSchedule = null;
     double m_messageRatePerSec = 1.0;
-
+    
     public void Init(FixAcceptor fixAcceptor, ArrayList<SessionID> sessions, SessionSettings sessionSettings) {
         m_fixAcceptor = fixAcceptor;
         m_sessionSettings = sessionSettings;
@@ -87,18 +95,30 @@ public class FixGeneratorTcr {
         }
     }
 
+    public void sendFIXTCRRaw(String fixMsg) throws InvalidMessage
+    {
+        Message msg = messageBuilderTcr.fromString(fixMsg);
+
+        sendMessageToAllClients(msg);
+    }
+
+    private synchronized void sendMessageToAllClients(Message message)
+    {
+        m_sessions.forEach((session) ->
+        {
+            if (false == m_mapSessionToSchedule.get(session.toString()).isSessionTime()) {
+                log.info("Outside session time");
+            } else {
+                m_fixAcceptor.sendMessageToClient(session, message);
+            }
+        });
+    }
+
     private void generatorMain() {
         try {
-            MessageBuilderTcr msgBuilderTCR = new MessageBuilderTcr();
             while (!m_isDone) {
-                m_sessions.forEach((session) ->
-                {
-                    if (false == m_mapSessionToSchedule.get(session.toString()).isSessionTime()) {
-                        log.info("Outside session time");
-                    } else {
-                        m_fixAcceptor.sendMessageToClient(session, msgBuilderTCR.createTcr());
-                    }
-                });
+                // send mockup message
+                sendMessageToAllClients(messageBuilderTcr.createTcr());
                 
                 // message rate control
                 {

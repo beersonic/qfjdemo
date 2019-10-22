@@ -10,6 +10,7 @@ import quickfix.ConfigError;
 import quickfix.DefaultMessageFactory;
 import quickfix.FileLogFactory;
 import quickfix.FileStoreFactory;
+import quickfix.InvalidMessage;
 import quickfix.MessageFactory;
 import quickfix.RuntimeError;
 import quickfix.SessionID;
@@ -22,7 +23,9 @@ public class AcceptorApp {
     @Autowired
     private FixAcceptor fixAcceptor;
 
+    @Autowired
     private FixGeneratorTcr m_fixGeneratorTcr;
+
     private SocketAcceptor m_socketAcceptor = null;
     private boolean m_isStartedServer = false;
 
@@ -43,7 +46,7 @@ public class AcceptorApp {
             log.info("NumberOfSession = " + sessions.size());
 
             log.info("Starting FIXGeneratorTCR");
-            m_fixGeneratorTcr = new FixGeneratorTcr();
+            //m_fixGeneratorTcr = new FixGeneratorTcr();
             m_fixGeneratorTcr.Init(fixAcceptor, sessions, executorSettings);
 
             m_isStartedServer = true;
@@ -53,27 +56,28 @@ public class AcceptorApp {
         }
     }
 
-    public void ToggleStartStopServer() throws RuntimeError, ConfigError
-    {
-        if (m_isStartedServer)
-        {
+    public void ToggleStartStopServer() throws RuntimeError, ConfigError {
+        if (m_isStartedServer) {
             m_socketAcceptor.stop();
-        }
-        else{
+        } else {
             m_socketAcceptor.start();
         }
     }
 
-    public void StartGenerateTCRFromFile()
-    {
+    public void StartGenerateTCRFromFile() {
         m_fixGeneratorTcr.start();
     }
 
-    public void StopGenerateTCRFromFile(){
+    public void StopGenerateTCRFromFile() {
         m_fixGeneratorTcr.stop();
     }
 
-	public void setMessageRate(double nMsgPerSecond) throws Exception {
+    public void setMessageRate(double nMsgPerSecond) throws Exception {
         m_fixGeneratorTcr.setMessageRate(nMsgPerSecond);
-	}
+    }
+
+    public void sendFIXMessageTCR(String rawFIXMessage) throws ConfigError, InvalidMessage
+    {
+        m_fixGeneratorTcr.sendFIXTCRRaw(rawFIXMessage);
+    }
 }

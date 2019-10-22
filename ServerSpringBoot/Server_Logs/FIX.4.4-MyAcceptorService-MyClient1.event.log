@@ -36,3 +36,90 @@
 20191016-08:40:01: Created session: FIX.4.4:MyAcceptorService->MyClient1
 20191016-08:41:14: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
 20191016-08:41:14: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191017-08:31:44: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191017-08:31:44: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191017-08:47:08: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191017-08:47:08: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191017-09:07:25: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191017-09:07:25: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191017-09:12:19: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191017-09:12:19: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191017-09:28:03: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191017-09:28:03: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191017-09:29:02: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:64976
+20191017-09:29:02: Acceptor heartbeat set to 10 seconds
+20191017-09:29:02: Received logon
+20191017-09:29:02: Responding to Logon request
+20191017-09:29:02: Received ResendRequest FROM: 1 TO: infinity
+20191017-09:29:02: Resending message: 1
+20191017-09:29:02: Resending message: 2
+20191017-09:29:02: Resending message: 3
+20191017-09:29:02: Resending message: 4
+20191017-09:29:02: Resending message: 5
+20191017-09:29:02: Resending message: 6
+20191017-09:29:02: Sent SequenceReset TO: 8
+20191017-09:33:27: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191017-09:33:27: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191017-09:34:45: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:65174
+20191017-09:34:45: Acceptor heartbeat set to 10 seconds
+20191017-09:34:45: Received logon
+20191017-09:34:45: Responding to Logon request
+20191017-09:56:43: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191017-09:56:43: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191017-09:56:47: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:49663
+20191017-09:56:47: Acceptor heartbeat set to 10 seconds
+20191017-09:56:48: Received logon
+20191017-09:56:48: Responding to Logon request
+20191021-09:00:53: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191021-09:00:53: Session state is not current; resetting FIX.4.4:MyAcceptorService->MyClient1
+20191021-09:00:53: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191021-09:04:46: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191021-09:04:46: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191021-09:06:20: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191021-09:06:20: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191021-09:09:00: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191021-09:09:00: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191021-09:11:58: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191021-09:11:58: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191021-09:13:15: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191021-09:13:15: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191021-09:16:32: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191021-09:16:32: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191022-02:34:14: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191022-02:34:14: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191022-03:30:23: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191022-03:30:23: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191022-03:52:42: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191022-03:52:42: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191022-03:54:25: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191022-03:54:25: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191022-03:55:58: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191022-03:55:58: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191022-04:00:53: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191022-04:00:53: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191022-04:11:36: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191022-04:11:36: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191022-04:16:06: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191022-04:16:06: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191022-05:51:56: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191022-05:51:56: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191022-05:57:20: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191022-05:57:20: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191022-06:01:52: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191022-06:01:52: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191022-06:04:29: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191022-06:04:29: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191022-06:07:50: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191022-06:07:50: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191022-06:13:31: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191022-06:13:31: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191022-06:16:03: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191022-06:16:03: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191022-06:23:41: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191022-06:23:41: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191022-06:25:28: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191022-06:25:28: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191022-06:27:49: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191022-06:27:49: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191022-06:32:27: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191022-06:32:27: Created session: FIX.4.4:MyAcceptorService->MyClient1
