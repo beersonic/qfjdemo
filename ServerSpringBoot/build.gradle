@@ -76,4 +76,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-log4j2:2.1.9.RELEASE'
 
 	implementation 'org.apache.commons:commons-lang3:3.9'
+
+	implementation 'io.springfox:springfox-swagger2:2.8.0'
+	implementation 'io.springfox:springfox-swagger-ui:2.8.0'
 }

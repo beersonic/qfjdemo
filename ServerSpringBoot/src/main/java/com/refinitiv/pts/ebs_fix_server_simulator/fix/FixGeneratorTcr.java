@@ -1,25 +1,31 @@
 package com.refinitiv.pts.ebs_fix_server_simulator.fix;
 
-import lombok.extern.log4j.Log4j2;
-import org.springframework.stereotype.Component;
-import quickfix.*;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import lombok.extern.log4j.Log4j2;
+import quickfix.ConfigError;
+import quickfix.DefaultSessionScheduleFactory;
+import quickfix.SessionID;
+import quickfix.SessionSchedule;
+import quickfix.SessionScheduleFactory;
+import quickfix.SessionSettings;
+
 @Log4j2
 public class FixGeneratorTcr {
-    boolean m_isDone = false;
+    FixAcceptor m_fixAcceptor;
+
+    boolean m_isDone = true;
     Thread m_thread = null;
-    FixAcceptor m_fixAccepter = null;
     ArrayList<SessionID> m_sessions = null;
     SessionSettings m_sessionSettings = null;
     HashMap<String, SessionSchedule> m_mapSessionToSchedule = null;
+    double m_messageRatePerSec = 1.0;
 
-    public FixGeneratorTcr(FixAcceptor fixAccepter, ArrayList<SessionID> sessions, SessionSettings sessionSettings) {
+    public void Init(FixAcceptor fixAcceptor, ArrayList<SessionID> sessions, SessionSettings sessionSettings) {
+        m_fixAcceptor = fixAcceptor;
         m_sessionSettings = sessionSettings;
-        m_fixAccepter = fixAccepter;
         m_sessions = sessions;
 
         m_mapSessionToSchedule = new HashMap<>();
@@ -34,51 +40,73 @@ public class FixGeneratorTcr {
         });
     }
 
+    public void setMessageRate(double msgPerSecond) throws Exception
+    {
+        if (msgPerSecond > 0)
+        {
+            m_messageRatePerSec = msgPerSecond;
+            log.info("set FIXGeneratorTCR message rate to " + msgPerSecond + " msg/sec");
+        }
+        else
+        {
+            throw new Exception("message rate must be positive number, inputRate=" + msgPerSecond);
+        }
+    }
+
     public void start() {
-        m_isDone = false;
+        if (m_thread == null || !m_thread.isAlive())
+        {
+            m_isDone = false;
 
-        m_thread = new Thread(() -> {
-            log.info("GeneratorTCR thread is started");
-            generatorMain();
-            log.info("GeneratorTCR thread is stopped");
-        });
+            m_thread = new Thread(() -> {
+                log.info("GeneratorTCR thread is started");
+                generatorMain();
+                log.info("GeneratorTCR thread is stopped");
+            });
 
-        m_thread.start();
+            m_thread.start();
+        }
+        else{
+            log.warn("unexpected start, GeneratorTCR thread is already running");
+        }
     }
 
     public void stop() {
-        try {
-            m_isDone = true;
-            m_thread.join(5000);
-        } catch (InterruptedException e) {
-            log.error("Stopping TCRGenerator: " + e.getMessage());
+        if (m_thread.isAlive())
+        {
+            try {
+                m_isDone = true;
+                m_thread.join(5000);
+            } catch (InterruptedException e) {
+                log.error("Stopping TCRGenerator: " + e.getMessage());
+            }
+        }
+        else
+        {
+            log.warn("unexpected stop, GeneratorTCR isn't running");
         }
     }
 
     private void generatorMain() {
         try {
             MessageBuilderTcr msgBuilderTCR = new MessageBuilderTcr();
-            Date tLastSend = new Date();
             while (!m_isDone) {
-                Date tNow = new Date();
-                long diff = tNow.getTime() - tLastSend.getTime();
-                if (diff > 10000) {
-                    tLastSend = tNow;
-
-                    //m_fixAccepter.sendMessageToClient(m_sessionId);
-                    m_sessions.forEach((session) ->
-                    {
-                        if (false == m_mapSessionToSchedule.get(session.toString()).isSessionTime()) {
-                            log.info("Outside session time");
-                        } else {
-                            m_fixAccepter.sendMessageToClient(session, msgBuilderTCR.createTcr());
-                        }
-                    });
+                m_sessions.forEach((session) ->
+                {
+                    if (false == m_mapSessionToSchedule.get(session.toString()).isSessionTime()) {
+                        log.info("Outside session time");
+                    } else {
+                        m_fixAcceptor.sendMessageToClient(session, msgBuilderTCR.createTcr());
+                    }
+                });
+                
+                // message rate control
+                {
+                    double interval = 1000 / m_messageRatePerSec;
+                    Thread.sleep((long)interval);
                 }
-                Thread.sleep(200);
             }
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

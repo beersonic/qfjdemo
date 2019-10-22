@@ -1,7 +1,17 @@
 package com.refinitiv.pts.ebs_fix_server_simulator.fix;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
+
+import lombok.extern.log4j.Log4j2;
 import quickfix.DataDictionary;
 import quickfix.Group;
 import quickfix.StringField;
@@ -11,13 +21,8 @@ import quickfix.field.TradeReportID;
 import quickfix.fix44.Message;
 import quickfix.fix44.TradeCaptureReport;
 
-import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
+@Log4j2
 public class MessageBuilderTcr {
-    final static Logger logger = LogManager.getLogger();
     long m_tradeId = 0;
 
     ArrayList<Message> m_listSampleMsg = null;
@@ -75,7 +80,7 @@ public class MessageBuilderTcr {
                         // add to msg list
                         m_listSampleMsg.add(tcr);
 
-                        logger.info("read TCR log from file\n" + tcr.toXML());
+                        log.info("read TCR log from file\n" + tcr.toXML());
 
                     }
                 }
@@ -84,7 +89,7 @@ public class MessageBuilderTcr {
                 sc.close();
             }
         } catch (Exception e) {
-            logger.error(e);
+            log.error(e);
         }
     }
 
