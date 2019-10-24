@@ -16,3 +16,12 @@
 /Server/.factorypath
 /Server/.project
 /Server/.classpath
+/ServerSpringBoot/qfjserver/.mvn
+/ServerSpringBoot/bin
+/Client/Client_Seq_Store1/FIX.4.4-MyClient1-MyAcceptorService.body
+/Client/Client_Seq_Store1/FIX.4.4-MyClient1-MyAcceptorService.header
+/Client/Client_Seq_Store1/FIX.4.4-MyClient1-MyAcceptorService.senderseqnums
+/Client/Client_Seq_Store1/FIX.4.4-MyClient1-MyAcceptorService.session
+/Client/Client_Seq_Store1/FIX.4.4-MyClient1-MyAcceptorService.targetseqnums
+/ServerSpringBoot/qfjserver/target
+/Server/Server_Seq_Store1

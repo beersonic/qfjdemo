@@ -1,6 +1,9 @@
 package com.refinitiv.pts.ebs_fix_server_simulator.fix;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+
+import com.refinitiv.pts.ebs_fix_server_simulator.util.CommonUtils;
 
 import org.springframework.stereotype.Component;
 
@@ -17,6 +20,10 @@ import quickfix.Session;
 import quickfix.SessionID;
 import quickfix.SessionNotFound;
 import quickfix.UnsupportedMessageType;
+import quickfix.field.MsgType;
+import quickfix.field.Password;
+import quickfix.field.SessionStatus;
+import quickfix.field.Username;
 import quickfix.fix44.MessageCracker;
 
 @Log4j2
@@ -64,10 +71,54 @@ public class FixAcceptor extends MessageCracker implements Application {
         handleCommonMessage("toApp", message, sessionId);
     }
 
+    private void PerformUsernamePasswordAuthenChecking(Message message) throws RejectLogon, FieldNotFound
+    {
+        if (message.isSetField(Username.FIELD) && message.isSetField(Password.FIELD))
+        {
+            boolean goodAuthen = false;
+
+            String username = message.getString(Username.FIELD);
+            String password = message.getString(Password.FIELD);
+
+            ArrayList<String> userTokens = new ArrayList<String>();
+            ArrayList<String> passwordTokens = new ArrayList<String>();
+            if (CommonUtils.RegexMatch(".+(\\d+)", username, userTokens)
+                && CommonUtils.RegexMatch(".+(\\d+)", password, passwordTokens))
+            {
+                int x1 = Integer.parseInt(userTokens.get(0));
+                int x2 = Integer.parseInt(passwordTokens.get(0));
+
+                if (x1 == x2)
+                {
+                    goodAuthen = (x1 == x2);
+                }
+            }
+
+            if (goodAuthen)
+            {
+                log.info("Sucessfully authenticate for user=" + username);
+            }
+            else
+            {
+                log.info("Failed to authenticate for user=" + username);
+                throw new RejectLogon("Invalid username/password", true, SessionStatus.INVALID_USERNAME_OR_PASSWORD);
+            }
+        }
+        else
+        {
+            log.info("No username/password set in LOGON message");
+        }
+    }
+
     @Override
     public void fromAdmin(Message message, SessionID sessionId)
-            throws FieldNotFound, IncorrectDataFormat, IncorrectTagValue, RejectLogon {
-        //super.fromAdmin(message, sessionId);
+            throws FieldNotFound, IncorrectDataFormat, IncorrectTagValue, RejectLogon 
+    {        
+        if (message.getHeader().getString(MsgType.FIELD).equals("A"))
+        {
+            log.info("Authentication: " + message.toRawString());
+            PerformUsernamePasswordAuthenChecking(message);
+        }     
         handleCommonMessage("fromAdmin", message, sessionId);
     }
 

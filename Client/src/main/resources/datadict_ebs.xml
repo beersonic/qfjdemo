@@ -58,6 +58,7 @@
 			</group>
 			<field name="TestMessageIndicator" required="N"/>
 			<field name="Username" required="N"/>
+			<field name="Password" required="N"/>
 		</message>
 		<message name="Logout" msgtype="5" msgcat="admin">
 			<field name="Text" required="N"/>

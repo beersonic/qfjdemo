@@ -1,125 +1,260 @@
-20191016-07:53:37: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191016-07:53:37: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191016-08:00:05: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191016-08:00:05: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191016-08:00:44: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:64528
-20191016-08:00:44: Acceptor heartbeat set to 30 seconds
-20191016-08:00:44: Disconnecting: Invalid Logon message: Tag not defined for this message type, field=554
-20191016-08:00:49: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:64549
-20191016-08:00:49: Acceptor heartbeat set to 5 seconds
-20191016-08:00:49: Received logon
-20191016-08:00:49: Responding to Logon request
-20191016-08:00:49: MsgSeqNum too high, expecting 2 but received 3: 8=FIX.4.49=8035=A34=349=MyClient152=20191016-08:00:49.85056=MyAcceptorService98=0108=510=246
-20191016-08:00:49: Enqueued at pos 3: 8=FIX.4.49=8035=A34=349=MyClient152=20191016-08:00:49.85056=MyAcceptorService98=0108=510=246
-20191016-08:00:49: Sent ResendRequest FROM: 2 TO: 2
-20191016-08:00:49: Enqueued at pos 4: 8=FIX.4.49=7835=234=449=MyClient152=20191016-08:00:49.85856=MyAcceptorService7=116=010=135
-20191016-08:00:49: Received ResendRequest FROM: 1 TO: infinity
-20191016-08:00:49: Resending message: 1
-20191016-08:00:49: Resending message: 2
-20191016-08:00:49: Resending message: 3
-20191016-08:00:49: Resending message: 4
-20191016-08:00:49: Sent SequenceReset TO: 6
-20191016-08:00:49: Resending message: 6
-20191016-08:00:49: Sent SequenceReset TO: 9
-20191016-08:00:49: ResendRequest for messages FROM 2 TO 2 has been satisfied.
-20191016-08:00:49: Received SequenceReset FROM: 2 TO: 5
-20191016-08:01:00: Disconnecting: Socket exception (/127.0.0.1:64549): java.io.IOException: An existing connection was forcibly closed by the remote host
-20191016-08:29:40: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191016-08:29:40: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191016-08:32:44: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191016-08:32:44: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191016-08:34:36: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191016-08:34:36: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191016-08:35:58: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191016-08:35:58: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191016-08:40:01: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191016-08:40:01: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191016-08:41:14: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191016-08:41:14: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191017-08:31:44: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191017-08:31:44: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191017-08:47:08: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191017-08:47:08: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191017-09:07:25: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191017-09:07:25: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191017-09:12:19: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191017-09:12:19: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191017-09:28:03: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191017-09:28:03: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191017-09:29:02: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:64976
-20191017-09:29:02: Acceptor heartbeat set to 10 seconds
-20191017-09:29:02: Received logon
-20191017-09:29:02: Responding to Logon request
-20191017-09:29:02: Received ResendRequest FROM: 1 TO: infinity
-20191017-09:29:02: Resending message: 1
-20191017-09:29:02: Resending message: 2
-20191017-09:29:02: Resending message: 3
-20191017-09:29:02: Resending message: 4
-20191017-09:29:02: Resending message: 5
-20191017-09:29:02: Resending message: 6
-20191017-09:29:02: Sent SequenceReset TO: 8
-20191017-09:33:27: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191017-09:33:27: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191017-09:34:45: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:65174
-20191017-09:34:45: Acceptor heartbeat set to 10 seconds
-20191017-09:34:45: Received logon
-20191017-09:34:45: Responding to Logon request
-20191017-09:56:43: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191017-09:56:43: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191017-09:56:47: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:49663
-20191017-09:56:47: Acceptor heartbeat set to 10 seconds
-20191017-09:56:48: Received logon
-20191017-09:56:48: Responding to Logon request
-20191021-09:00:53: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191021-09:00:53: Session state is not current; resetting FIX.4.4:MyAcceptorService->MyClient1
-20191021-09:00:53: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191021-09:04:46: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191021-09:04:46: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191021-09:06:20: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191021-09:06:20: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191021-09:09:00: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191021-09:09:00: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191021-09:11:58: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191021-09:11:58: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191021-09:13:15: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191021-09:13:15: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191021-09:16:32: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191021-09:16:32: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191022-02:34:14: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191022-02:34:14: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191022-03:30:23: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191022-03:30:23: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191022-03:52:42: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191022-03:52:42: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191022-03:54:25: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191022-03:54:25: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191022-03:55:58: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191022-03:55:58: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191022-04:00:53: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191022-04:00:53: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191022-04:11:36: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191022-04:11:36: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191022-04:16:06: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191022-04:16:06: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191022-05:51:56: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191022-05:51:56: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191022-05:57:20: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191022-05:57:20: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191022-06:01:52: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191022-06:01:52: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191022-06:04:29: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191022-06:04:29: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191022-06:07:50: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191022-06:07:50: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191022-06:13:31: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191022-06:13:31: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191022-06:16:03: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191022-06:16:03: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191022-06:23:41: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191022-06:23:41: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191022-06:25:28: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191022-06:25:28: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191022-06:27:49: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191022-06:27:49: Created session: FIX.4.4:MyAcceptorService->MyClient1
-20191022-06:32:27: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
-20191022-06:32:27: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191024-09:32:35: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191024-09:32:35: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191024-09:33:12: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62343
+20191024-09:33:12: Acceptor heartbeat set to 10 seconds
+20191024-09:33:12: Required field missing from logon
+20191024-09:33:12: Disconnecting: Required field missing from logon
+20191024-09:33:16: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62358
+20191024-09:33:16: Acceptor heartbeat set to 10 seconds
+20191024-09:33:16: Required field missing from logon
+20191024-09:33:16: Disconnecting: Required field missing from logon
+20191024-09:33:21: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62371
+20191024-09:33:21: Acceptor heartbeat set to 10 seconds
+20191024-09:33:21: Required field missing from logon
+20191024-09:33:21: Disconnecting: Required field missing from logon
+20191024-09:33:26: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62384
+20191024-09:33:26: Acceptor heartbeat set to 10 seconds
+20191024-09:33:26: Required field missing from logon
+20191024-09:33:26: Disconnecting: Required field missing from logon
+20191024-09:33:31: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62397
+20191024-09:33:31: Acceptor heartbeat set to 10 seconds
+20191024-09:33:31: Required field missing from logon
+20191024-09:33:31: Disconnecting: Required field missing from logon
+20191024-09:33:36: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62410
+20191024-09:33:36: Acceptor heartbeat set to 10 seconds
+20191024-09:33:36: Required field missing from logon
+20191024-09:33:36: Disconnecting: Required field missing from logon
+20191024-09:33:41: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62423
+20191024-09:33:41: Acceptor heartbeat set to 10 seconds
+20191024-09:33:41: Required field missing from logon
+20191024-09:33:41: Disconnecting: Required field missing from logon
+20191024-09:33:46: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62437
+20191024-09:33:46: Acceptor heartbeat set to 10 seconds
+20191024-09:33:46: Required field missing from logon
+20191024-09:33:46: Disconnecting: Required field missing from logon
+20191024-09:33:51: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62452
+20191024-09:33:51: Acceptor heartbeat set to 10 seconds
+20191024-09:33:51: Required field missing from logon
+20191024-09:33:51: Disconnecting: Required field missing from logon
+20191024-09:33:56: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62467
+20191024-09:33:56: Acceptor heartbeat set to 10 seconds
+20191024-09:33:56: Required field missing from logon
+20191024-09:33:56: Disconnecting: Required field missing from logon
+20191024-09:34:01: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62488
+20191024-09:34:01: Acceptor heartbeat set to 10 seconds
+20191024-09:34:01: Required field missing from logon
+20191024-09:34:01: Disconnecting: Required field missing from logon
+20191024-09:34:06: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62501
+20191024-09:34:06: Acceptor heartbeat set to 10 seconds
+20191024-09:34:06: Required field missing from logon
+20191024-09:34:06: Disconnecting: Required field missing from logon
+20191024-09:34:11: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62516
+20191024-09:34:11: Acceptor heartbeat set to 10 seconds
+20191024-09:34:11: Required field missing from logon
+20191024-09:34:11: Disconnecting: Required field missing from logon
+20191024-09:34:16: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62530
+20191024-09:34:16: Acceptor heartbeat set to 10 seconds
+20191024-09:34:16: Required field missing from logon
+20191024-09:34:16: Disconnecting: Required field missing from logon
+20191024-09:35:29: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191024-09:35:29: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191024-09:35:32: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62589
+20191024-09:35:32: Acceptor heartbeat set to 10 seconds
+20191024-09:35:32: Required field missing from logon
+20191024-09:35:32: Disconnecting: Required field missing from logon
+20191024-09:35:37: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62608
+20191024-09:35:37: Acceptor heartbeat set to 10 seconds
+20191024-09:35:37: Required field missing from logon
+20191024-09:35:37: Disconnecting: Required field missing from logon
+20191024-09:35:42: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62621
+20191024-09:35:42: Acceptor heartbeat set to 10 seconds
+20191024-09:35:42: Required field missing from logon
+20191024-09:35:42: Disconnecting: Required field missing from logon
+20191024-09:35:48: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62635
+20191024-09:35:48: Acceptor heartbeat set to 10 seconds
+20191024-09:35:48: Required field missing from logon
+20191024-09:35:48: Disconnecting: Required field missing from logon
+20191024-09:35:53: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62648
+20191024-09:35:53: Acceptor heartbeat set to 10 seconds
+20191024-09:35:53: Required field missing from logon
+20191024-09:35:53: Disconnecting: Required field missing from logon
+20191024-09:35:58: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62663
+20191024-09:35:58: Acceptor heartbeat set to 10 seconds
+20191024-09:35:58: Required field missing from logon
+20191024-09:35:58: Disconnecting: Required field missing from logon
+20191024-09:36:03: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62679
+20191024-09:36:03: Acceptor heartbeat set to 10 seconds
+20191024-09:36:03: Required field missing from logon
+20191024-09:36:03: Disconnecting: Required field missing from logon
+20191024-09:36:23: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62713
+20191024-09:36:23: Acceptor heartbeat set to 10 seconds
+20191024-09:36:23: Required field missing from logon
+20191024-09:36:23: Disconnecting: Required field missing from logon
+20191024-09:36:27: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62728
+20191024-09:36:27: Acceptor heartbeat set to 10 seconds
+20191024-09:36:27: Required field missing from logon
+20191024-09:36:27: Disconnecting: Required field missing from logon
+20191024-09:36:32: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62742
+20191024-09:36:32: Acceptor heartbeat set to 10 seconds
+20191024-09:36:32: Required field missing from logon
+20191024-09:36:32: Disconnecting: Required field missing from logon
+20191024-09:36:37: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62755
+20191024-09:36:37: Acceptor heartbeat set to 10 seconds
+20191024-09:36:37: Required field missing from logon
+20191024-09:36:37: Disconnecting: Required field missing from logon
+20191024-09:36:42: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62768
+20191024-09:36:42: Acceptor heartbeat set to 10 seconds
+20191024-09:36:42: Required field missing from logon
+20191024-09:36:42: Disconnecting: Required field missing from logon
+20191024-09:36:47: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62782
+20191024-09:36:47: Acceptor heartbeat set to 10 seconds
+20191024-09:36:47: Required field missing from logon
+20191024-09:36:47: Disconnecting: Required field missing from logon
+20191024-09:36:52: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62798
+20191024-09:36:52: Acceptor heartbeat set to 10 seconds
+20191024-09:36:52: Required field missing from logon
+20191024-09:36:52: Disconnecting: Required field missing from logon
+20191024-09:36:57: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62817
+20191024-09:36:57: Acceptor heartbeat set to 10 seconds
+20191024-09:36:57: Required field missing from logon
+20191024-09:36:57: Disconnecting: Required field missing from logon
+20191024-09:37:02: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62830
+20191024-09:37:02: Acceptor heartbeat set to 10 seconds
+20191024-09:37:02: Required field missing from logon
+20191024-09:37:02: Disconnecting: Required field missing from logon
+20191024-09:37:07: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62844
+20191024-09:37:07: Acceptor heartbeat set to 10 seconds
+20191024-09:37:07: Required field missing from logon
+20191024-09:37:07: Disconnecting: Required field missing from logon
+20191024-09:37:12: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62858
+20191024-09:37:12: Acceptor heartbeat set to 10 seconds
+20191024-09:37:12: Required field missing from logon
+20191024-09:37:12: Disconnecting: Required field missing from logon
+20191024-09:37:17: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62873
+20191024-09:37:17: Acceptor heartbeat set to 10 seconds
+20191024-09:37:17: Required field missing from logon
+20191024-09:37:17: Disconnecting: Required field missing from logon
+20191024-09:37:22: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62886
+20191024-09:37:22: Acceptor heartbeat set to 10 seconds
+20191024-09:37:22: Required field missing from logon
+20191024-09:37:22: Disconnecting: Required field missing from logon
+20191024-09:37:27: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62900
+20191024-09:37:27: Acceptor heartbeat set to 10 seconds
+20191024-09:37:27: Required field missing from logon
+20191024-09:37:27: Disconnecting: Required field missing from logon
+20191024-09:37:32: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62913
+20191024-09:37:32: Acceptor heartbeat set to 10 seconds
+20191024-09:37:32: Required field missing from logon
+20191024-09:37:32: Disconnecting: Required field missing from logon
+20191024-09:37:37: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62926
+20191024-09:37:37: Acceptor heartbeat set to 10 seconds
+20191024-09:37:37: Required field missing from logon
+20191024-09:37:37: Disconnecting: Required field missing from logon
+20191024-09:37:42: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62939
+20191024-09:37:42: Acceptor heartbeat set to 10 seconds
+20191024-09:37:42: Required field missing from logon
+20191024-09:37:42: Disconnecting: Required field missing from logon
+20191024-09:37:47: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62952
+20191024-09:37:47: Acceptor heartbeat set to 10 seconds
+20191024-09:37:47: Required field missing from logon
+20191024-09:37:47: Disconnecting: Required field missing from logon
+20191024-09:37:53: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62965
+20191024-09:37:53: Acceptor heartbeat set to 10 seconds
+20191024-09:37:53: Required field missing from logon
+20191024-09:37:53: Disconnecting: Required field missing from logon
+20191024-09:37:58: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62979
+20191024-09:37:58: Acceptor heartbeat set to 10 seconds
+20191024-09:37:58: Required field missing from logon
+20191024-09:37:58: Disconnecting: Required field missing from logon
+20191024-09:38:03: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:62999
+20191024-09:38:03: Acceptor heartbeat set to 10 seconds
+20191024-09:38:03: Required field missing from logon
+20191024-09:38:03: Disconnecting: Required field missing from logon
+20191024-09:38:08: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:63013
+20191024-09:38:08: Acceptor heartbeat set to 10 seconds
+20191024-09:38:08: Required field missing from logon
+20191024-09:38:08: Disconnecting: Required field missing from logon
+20191024-09:38:13: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:63026
+20191024-09:38:13: Acceptor heartbeat set to 10 seconds
+20191024-09:38:13: Required field missing from logon
+20191024-09:38:13: Disconnecting: Required field missing from logon
+20191024-09:38:18: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:63039
+20191024-09:38:18: Acceptor heartbeat set to 10 seconds
+20191024-09:38:18: Required field missing from logon
+20191024-09:38:18: Disconnecting: Required field missing from logon
+20191024-09:38:23: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:63053
+20191024-09:38:23: Acceptor heartbeat set to 10 seconds
+20191024-09:38:23: Required field missing from logon
+20191024-09:38:23: Disconnecting: Required field missing from logon
+20191024-09:38:28: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:63066
+20191024-09:38:28: Acceptor heartbeat set to 10 seconds
+20191024-09:38:28: Required field missing from logon
+20191024-09:38:28: Disconnecting: Required field missing from logon
+20191024-09:39:29: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191024-09:39:29: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191024-09:40:08: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:63133
+20191024-09:40:08: Acceptor heartbeat set to 10 seconds
+20191024-09:40:08: Received logon
+20191024-09:40:08: Responding to Logon request
+20191024-09:40:08: MsgSeqNum too high, expecting 1 but received 48: 8=FIX.4.49=11435=A34=4849=MyClient152=20191024-09:40:08.49756=MyAcceptorService98=0108=10553=client1234554=stardust123410=211
+20191024-09:40:08: Enqueued at pos 48: 8=FIX.4.49=11435=A34=4849=MyClient152=20191024-09:40:08.49756=MyAcceptorService98=0108=10553=client1234554=stardust123410=211
+20191024-09:40:08: Sent ResendRequest FROM: 1 TO: 47
+20191024-09:40:08: Received SequenceReset FROM: 1 TO: 49
+20191024-09:40:19: ResendRequest for messages FROM 1 TO 47 has been satisfied.
+20191024-09:43:00: Session FIX.4.4:MyAcceptorService->MyClient1 schedule is weekly, SUN 06:00:00-UTC - FRI 17:00:00-UTC
+20191024-09:43:00: Created session: FIX.4.4:MyAcceptorService->MyClient1
+20191024-09:43:01: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:63254
+20191024-09:43:01: Acceptor heartbeat set to 10 seconds
+20191024-09:43:01: Received logon
+20191024-09:43:01: Responding to Logon request
+20191024-09:43:36: Received logout request
+20191024-09:43:36: Sent logout response
+20191024-09:43:36: Disconnecting: Received logout request
+20191024-09:43:59: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:63292
+20191024-09:43:59: Acceptor heartbeat set to 10 seconds
+20191024-09:43:59: Logon rejected: quickfix.RejectLogon: Invalid username/password
+20191024-09:43:59: Disconnecting: Logon rejected: quickfix.RejectLogon: Invalid username/password
+20191024-09:44:04: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:63306
+20191024-09:44:04: Acceptor heartbeat set to 10 seconds
+20191024-09:44:04: Logon rejected: quickfix.RejectLogon: Invalid username/password
+20191024-09:44:04: Disconnecting: Logon rejected: quickfix.RejectLogon: Invalid username/password
+20191024-09:44:09: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:63320
+20191024-09:44:09: Acceptor heartbeat set to 10 seconds
+20191024-09:44:09: Logon rejected: quickfix.RejectLogon: Invalid username/password
+20191024-09:44:09: Disconnecting: Logon rejected: quickfix.RejectLogon: Invalid username/password
+20191024-09:44:14: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:63340
+20191024-09:44:14: Acceptor heartbeat set to 10 seconds
+20191024-09:44:14: Logon rejected: quickfix.RejectLogon: Invalid username/password
+20191024-09:44:14: Disconnecting: Logon rejected: quickfix.RejectLogon: Invalid username/password
+20191024-09:44:19: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:63353
+20191024-09:44:19: Acceptor heartbeat set to 10 seconds
+20191024-09:44:19: Logon rejected: quickfix.RejectLogon: Invalid username/password
+20191024-09:44:19: Disconnecting: Logon rejected: quickfix.RejectLogon: Invalid username/password
+20191024-09:44:24: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:63367
+20191024-09:44:24: Acceptor heartbeat set to 10 seconds
+20191024-09:44:24: Logon rejected: quickfix.RejectLogon: Invalid username/password
+20191024-09:44:24: Disconnecting: Logon rejected: quickfix.RejectLogon: Invalid username/password
+20191024-09:44:29: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:63380
+20191024-09:44:29: Acceptor heartbeat set to 10 seconds
+20191024-09:44:29: Logon rejected: quickfix.RejectLogon: Invalid username/password
+20191024-09:44:29: Disconnecting: Logon rejected: quickfix.RejectLogon: Invalid username/password
+20191024-09:44:34: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:63393
+20191024-09:44:34: Acceptor heartbeat set to 10 seconds
+20191024-09:44:34: Logon rejected: quickfix.RejectLogon: Invalid username/password
+20191024-09:44:34: Disconnecting: Logon rejected: quickfix.RejectLogon: Invalid username/password
+20191024-09:44:39: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:63406
+20191024-09:44:39: Acceptor heartbeat set to 10 seconds
+20191024-09:44:39: Logon rejected: quickfix.RejectLogon: Invalid username/password
+20191024-09:44:39: Disconnecting: Logon rejected: quickfix.RejectLogon: Invalid username/password
+20191024-09:44:44: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:63419
+20191024-09:44:44: Acceptor heartbeat set to 10 seconds
+20191024-09:44:44: Logon rejected: quickfix.RejectLogon: Invalid username/password
+20191024-09:44:44: Disconnecting: Logon rejected: quickfix.RejectLogon: Invalid username/password
+20191024-09:44:49: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:63432
+20191024-09:44:49: Acceptor heartbeat set to 10 seconds
+20191024-09:44:49: Logon rejected: quickfix.RejectLogon: Invalid username/password
+20191024-09:44:49: Disconnecting: Logon rejected: quickfix.RejectLogon: Invalid username/password
+20191024-09:44:54: Accepting session FIX.4.4:MyAcceptorService->MyClient1 from /127.0.0.1:63445
+20191024-09:44:54: Acceptor heartbeat set to 10 seconds
+20191024-09:44:54: Logon rejected: quickfix.RejectLogon: Invalid username/password
+20191024-09:44:54: Disconnecting: Logon rejected: quickfix.RejectLogon: Invalid username/password

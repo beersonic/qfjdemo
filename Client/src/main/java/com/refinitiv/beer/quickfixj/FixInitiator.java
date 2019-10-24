@@ -6,9 +6,19 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import quickfix.*;
+import quickfix.field.Password;
+import quickfix.field.Username;
 
 public class FixInitiator extends ApplicationAdapter {
     final static Logger logger = LogManager.getLogger();
+
+    String m_userName;
+    String m_password;
+    public void setUserAndPassword(String userName, String password)
+    {
+        m_userName = userName;
+        m_password = password;
+    }
 
     @Override
     public void onCreate(SessionID sessionId) {
@@ -27,6 +37,16 @@ public class FixInitiator extends ApplicationAdapter {
 
     @Override
     public void toAdmin(Message message, SessionID sessionId) {
+        try {
+            final Message.Header header = message.getHeader();
+            if (header.getString(35).equals("A")) {
+                message.setString(Username.FIELD, m_userName);
+                message.setString(Password.FIELD, m_password);
+            }
+        } catch (FieldNotFound e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         handleCommonMessage("toAdmin", message, sessionId);
     }
 

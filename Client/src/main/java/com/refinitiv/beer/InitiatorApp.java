@@ -1,19 +1,26 @@
 package com.refinitiv.beer;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Properties;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.refinitiv.beer.quickfixj.FixInitiator;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import net.sf.saxon.expr.flwor.Tuple;
+import net.sf.saxon.ma.map.KeyValuePair;
 import quickfix.Application;
 import quickfix.ConfigError;
 import quickfix.DefaultMessageFactory;
@@ -30,6 +37,7 @@ public class InitiatorApp {
     final static Logger logger = LogManager.getLogger();
     static HashMap<Integer, SocketInitiator> c_dictIdAndClient = null;
     static boolean c_okToRun = false;
+    static HashMap<String, Pair<String, String>> c_dictUserPassword = new HashMap<String, Pair<String, String>>();
 
     public static void promptEnterKey() {
         System.out.println("Press \"ENTER\" to continue...");
@@ -67,31 +75,23 @@ public class InitiatorApp {
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String line = reader.readLine();
-        
+
         /*
-        Scanner scanner = new Scanner(System.in);
-        String line = scanner.nextLine();
-        scanner.close();
-*/
+         * Scanner scanner = new Scanner(System.in); String line = scanner.nextLine();
+         * scanner.close();
+         */
 
         ArrayList<String> regexMatchTokens = new ArrayList<String>();
-        if (RegexMatch("exit", line, null, false))
-        {
+        if (RegexMatch("exit", line, null, false)) {
             StopAllInitiator();
             c_okToRun = false;
             logger.info("Exit program");
-        }     
-        else if (RegexMatch("stopall", line, null, false))
-        {
+        } else if (RegexMatch("stopall", line, null, false)) {
             StopAllInitiator();
-        }
-        else if (RegexMatch("start\\s*(\\d+)", line, regexMatchTokens))
-        {
+        } else if (RegexMatch("start\\s*(\\d+)", line, regexMatchTokens)) {
             int id = Integer.parseInt(regexMatchTokens.get(0));
             StartInitiator(id);
-        }   
-        else if (RegexMatch("stop\\s*(\\d+)", line, regexMatchTokens))
-        {
+        } else if (RegexMatch("stop\\s*(\\d+)", line, regexMatchTokens)) {
             int id = Integer.parseInt(regexMatchTokens.get(0));
             StopInitiator(id);
         }
@@ -101,12 +101,10 @@ public class InitiatorApp {
         try {
             c_okToRun = true;
             c_dictIdAndClient = new HashMap<Integer, SocketInitiator>();
-
             // auto start client1
             StartInitiator(1);
 
-            while(c_okToRun)
-            {
+            while (c_okToRun) {
                 ReceiveCommand();
             }
         } catch (Exception e) {
@@ -156,7 +154,8 @@ public class InitiatorApp {
     }
 
     static SessionSettings InitializeSessionSettings(int clientId) throws ConfigError, FieldConvertError {
-     
+        String clientName = GetClientNameById(clientId);
+
         SessionSettings sessionSettings = new SessionSettings();
         {
             quickfix.Dictionary dict = new quickfix.Dictionary();
@@ -171,7 +170,7 @@ public class InitiatorApp {
 
                 // session id
                 dict.setString("BeginString", "FIX.4.4");
-                dict.setString("SenderCompID", "MyClient" + clientId);
+                dict.setString("SenderCompID", clientName);
                 dict.setString("TargetCompID", "MyAcceptorService");
                 
                 // operating time
@@ -194,19 +193,54 @@ public class InitiatorApp {
             SessionID sid = ExtractSessionIDFromDictionary(dict);
             sessionSettings.set(sid, dict);
         }
+
+        try{
+            Pair<String, String> kvp = GetUserPassword(clientName);
+            c_dictUserPassword.put(clientName, kvp);
+        }   
+        catch(Exception e)
+        {
+            logger.error(e);
+        }
         return sessionSettings;
+    }
+
+    private static String GetClientNameById(int id)
+    {
+        return "MyClient" + id;
+    }
+
+    private static Pair<String, String> GetUserPassword(String clientName) throws FileNotFoundException, IOException
+    {
+        Properties properties = new Properties();
+        properties.load(new FileInputStream("src/main/resources/client.properties"));
+        
+        String userName = properties.getProperty(clientName + ".username");
+        String password = properties.getProperty(clientName + ".password");
+
+        Pair<String, String> kvp = new ImmutablePair<String, String>(userName, password);
+        return kvp;
     }
 
     public static SocketInitiator CreateInitiator(int id)
     {
         SocketInitiator socketInitiator = null;
         try {
+            String clientName = GetClientNameById(id);
+
             SessionSettings executorSettings = InitializeSessionSettings(id);
-            
-            Application application = new FixInitiator();
             FileStoreFactory fileStoreFactory = new FileStoreFactory(executorSettings);
             MessageFactory messageFactory = new DefaultMessageFactory();
             FileLogFactory fileLogFactory = new FileLogFactory(executorSettings);
+
+            FixInitiator application = new FixInitiator();
+            {
+                if (c_dictUserPassword.containsKey(clientName))
+                {
+                    Pair<String, String> kvp = c_dictUserPassword.get(clientName);
+                    application.setUserAndPassword(kvp.getKey(), kvp.getValue());
+                }
+            }
 
             socketInitiator = new SocketInitiator(application, fileStoreFactory, executorSettings, fileLogFactory, messageFactory);
         }
