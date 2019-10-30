@@ -19,7 +19,7 @@ public class AcceptorApp
         SocketAcceptor socketAcceptor = null;
         try{
             FixAcceptor fixAccepter = new FixAcceptor();
-            SessionSettings executorSettings = new SessionSettings("./qfj_acceptor.cfg");
+            SessionSettings executorSettings = new SessionSettings("qfj_acceptor.cfg");
             Application application = fixAccepter;
             FileStoreFactory fileStoreFactory = new FileStoreFactory(executorSettings);
             MessageFactory messageFactory = new DefaultMessageFactory();
