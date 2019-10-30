@@ -52,7 +52,7 @@ public class FixMessageSender
         }
         return result;
     }
-    
+    /*
     @PostMapping(value="send-fix-message-1")
     public HttpStatus sendFIXMessage1(
              //@ApiParam(name = "FIX message in format TAG=VALUE, multiple value by new line") 
@@ -75,4 +75,5 @@ public class FixMessageSender
         }
         return result;
     }
+    */
 }

@@ -57,9 +57,10 @@ dependencies {
 	// Spring
 	implementation ('org.springframework.boot:spring-boot-starter-web:2.1.9.RELEASE') {
 		exclude module: "spring-boot-starter-logging"	// To enable LOG4J2
-//		exclude module: "logback-classic"
+		exclude module: "logback-classic"
 //		exclude module: "log4j-over-slf4j"
 		//exclude module : 'slf4j-log4j12'
+		exclude module: "slf4j-log4j12"
 	}
 
 	// Lombox
