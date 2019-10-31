@@ -1,0 +1,922 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- * This file is derived from the ExecRpt-50SP1.xml file found within 
+	the parent datadictionary 5.0SP1 * The parent is located in ..\..\..\datadict\fix\v5.0SP1 
+	and was supplied as part of the transacttools-6.2.4 download * Any alterations 
+	to this file, compared to the original, are required for the Thomson Reuters 
+	implementation of the * dictionary plus any Publisher requirements as they 
+	are onboarded. -->
+<fixDatadict parent="5.0SP1">
+<message type="8">
+	<aliasList>
+		<alias>ExecutionReport</alias>
+		<alias>ExecRpt</alias>
+	</aliasList>
+	<fieldList>
+		<group required="true" ref="StandardHeader">
+			<description>
+        <![CDATA[MsgType = 8]]>
+			</description>
+		</group>
+		<group required="false" ref="ApplicationSequenceControl">
+			<description>
+        <![CDATA[For use in drop copy applications. NOT FOR USE in transactional applications.]]>
+			</description>
+		</group>
+		<field tagRef="826" />
+		<field tagRef="37" required="true">
+			<description>
+        <![CDATA[OrderID is required to be unique for each chain of orders.]]>
+			</description>
+		</field>
+		<field tagRef="1003" />
+		<field tagRef="198">
+			<description>
+        <![CDATA[Can be used to provide order id used by exchange or executing system.]]>
+			</description>
+		</field>
+		<field tagRef="526">
+			<description>
+        <![CDATA[In the case of quotes can be mapped to:
+            - QuoteID(117) of a single Quote
+            - QuoteEntryID(299) of a Mass Quote.]]>
+			</description>
+		</field>
+		<field tagRef="527" />
+		<field tagRef="11">
+			<description>
+        <![CDATA[Required when referring to orders that where electronically submitted over FIX or otherwise
+            assigned a ClOrdID(11).
+            In the case of quotes can be mapped to:
+            - QuoteMsgID(1166) of a single Quote
+            - QuoteID(117) of a Mass Quote.]]>
+			</description>
+		</field>
+		<field tagRef="41">
+			<description>
+        <![CDATA[Conditionally required for response to a Cancel or Cancel/Replace request (ExecType=PendingCancel,
+            Replace, or Canceled) when referring to orders that where electronically submitted over FIX or otherwise
+            assigned a ClOrdID(11). ClOrdID of the previous accepted order (NOT the initial order of the day) when
+            canceling or replacing an order.]]>
+			</description>
+		</field>
+		<field tagRef="583" />
+		<field tagRef="492" />
+		<field tagRef="693">
+			<description>
+        <![CDATA[Required if responding to a QuoteResponse message. Echo back the Initiator’s value specified in the message.]]>
+			</description>
+		</field>
+		<field tagRef="790">
+			<description>
+        <![CDATA[Required if responding to and if provided on the Order Status Request message. Echo back the value provided
+            by the requester.]]>
+			</description>
+		</field>
+		<field tagRef="584">
+			<description>
+        <![CDATA[Required if responding to a Order Mass Status Request. Echo back the value provided by the requester.]]>
+			</description>
+		</field>
+		<field tagRef="961">
+			<description>
+        <![CDATA[Host assigned entity ID that can be used to reference all components of a cross; sides + strategy +
+            legs]]>
+			</description>
+		</field>
+		<field tagRef="911">
+			<description>
+        <![CDATA[Can be used when responding to an Order Mass Status Request to identify the total number of Execution
+            Reports which will be returned.]]>
+			</description>
+		</field>
+		<field tagRef="912">
+			<description>
+        <![CDATA[Can be used when responding to an Order Mass Status Request to indicate that this is the last Execution
+            Reports which will be returned as a result of the request.]]>
+			</description>
+		</field>
+		<field tagRef="453">
+			<description>
+        <![CDATA[Repeating group below should contain unique combinations of PartyID, PartyIDSource, and PartyRole]]>
+			</description>
+		</field>
+		<group required="true" ref="Parties">
+			<description>
+        <![CDATA[
+            Insert here the set of "Parties" (firm identification) fields defined in "Common Components of Application
+            Messages"
+        ]]>
+			</description>
+		</group>
+		<field tagRef="229" />
+		<field tagRef="382">
+			<description>
+        <![CDATA[Number of ContraBrokers repeating group instances.]]>
+			</description>
+		</field>
+		<group required="false" ref="ContraGrp">
+			<description>
+        <![CDATA[
+            Number of ContraBrokers repeating group instances.
+        ]]>
+			</description>
+		</group>
+		<field tagRef="66">
+			<description>
+        <![CDATA[Required for executions against orders which were submitted as part of a list.]]>
+			</description>
+		</field>
+		<field tagRef="548">
+			<description>
+        <![CDATA[CrossID for the replacement order]]>
+			</description>
+		</field>
+		<field tagRef="551">
+			<description>
+        <![CDATA[Must match original cross order. Same order chaining mechanism as ClOrdID/OrigClOrdID with single order
+            Cancel/Replace.]]>
+			</description>
+		</field>
+		<field tagRef="549" />
+		<field tagRef="880" />
+		<field tagRef="17" required="true">
+			<description>
+        <![CDATA[Unique identifier of execution message as assigned by sell-side (broker, exchange, ECN) (will be 0 (zero)
+            forExecType=I (Order Status)).]]>
+			</description>
+		</field>
+		<field tagRef="19">
+			<description>
+        <![CDATA[Required for Trade Cancel and Trade Correct ExecType messages]]>
+			</description>
+		</field>
+		<field tagRef="150" required="true">
+			<description>
+        <![CDATA[Describes the purpose of the execution report.]]>
+			</description>
+		</field>
+		<field tagRef="39" required="true">
+			<description>
+        <![CDATA[Describes the current state of a CHAIN of orders, same scope as OrderQty, CumQty, LeavesQty, and AvgPx]]>
+			</description>
+		</field>
+		<field tagRef="636">
+			<description>
+        <![CDATA[For optional use with OrdStatus = 0 (New)]]>
+			</description>
+		</field>
+		<field tagRef="103">
+			<description>
+        <![CDATA[For optional use with ExecType = 8 (Rejected)]]>
+			</description>
+		</field>
+		<field tagRef="378">
+			<description>
+        <![CDATA[Required for ExecType = D (Restated).]]>
+			</description>
+		</field>
+		<field tagRef="1">
+			<description>
+        <![CDATA[Required for executions against electronically submitted orders which were assigned an account by the
+            institution or intermediary]]>
+			</description>
+		</field>
+		<field tagRef="660" />
+		<field tagRef="581">
+			<description>
+        <![CDATA[Specifies type of account]]>
+			</description>
+		</field>
+		<field tagRef="589" />
+		<field tagRef="590" />
+		<field tagRef="591" />
+		<field tagRef="70" />
+		<field tagRef="78">
+			<description>
+        <![CDATA[Number of repeating groups for pre-trade allocation]]>
+			</description>
+		</field>
+		<group required="false" ref="PreAllocGrp">
+			<description>
+        <![CDATA[Pre-trade allocation instructions.]]>
+			</description>
+		</group>
+		<field tagRef="63" />
+		<field tagRef="64">
+			<description>
+        <![CDATA[Takes precedence over SettlType value and conditionally required/omitted for specific SettlType values.]]>
+			</description>
+		</field>
+		<field tagRef="11125" />
+		<field tagRef="6872" />
+		<field tagRef="574" />
+		<field tagRef="1115" />
+		<field tagRef="544" />
+		<field tagRef="635" />
+		<field tagRef="100" />
+		<group required="true" ref="Instrument">
+			<description>
+        <![CDATA[
+            Insert here the set of "Instrument" (symbology) fields defined in "Common Components of Application
+            Messages"
+        ]]>
+			</description>
+		</group>
+		<field tagRef="11034">
+			<description><![CDATA[The Fixing center for an FX NDF trade.]]></description>
+		</field>
+		<group required="false" ref="FinancingDetails">
+			<description>
+        <![CDATA[
+            Insert here the set of "FinancingDetails" (symbology) fields defined in "Common Components of Application
+            Messages"
+        ]]>
+			</description>
+		</group>
+		<field tagRef="711">
+			<description>
+        <![CDATA[Number of underlyings]]>
+			</description>
+		</field>
+		<group required="false" ref="UndInstrmtGrp">
+			<description>
+        <![CDATA[
+            Number of underlyings
+        ]]>
+			</description>
+		</group>
+		<field tagRef="54" required="true" />
+		<field tagRef="232" />
+		<group required="false" ref="Stipulations">
+			<description>
+        <![CDATA[
+            Insert here the set of "Stipulations" (repeating group of Fixed Income stipulations) fields defined in
+            "Common Components of Application Messages"
+        ]]>
+			</description>
+		</group>
+		<field tagRef="854" />
+		<group required="false" ref="OrderQtyData">
+			<description>
+        <![CDATA[
+            Insert here the set of "OrderQtyData" fields defined in "Common Components of Application Messages"
+            **IMPORTANT NOTE: OrderQty field is required for Single Instrument Orders unless rejecting or acknowledging
+            an order for a CashOrderQty or PercentOrder. **
+        ]]>
+			</description>
+		</group>
+		<field tagRef="1093" />
+		<field tagRef="40" />
+		<field tagRef="423" />
+		<field tagRef="44">
+			<description>
+        <![CDATA[Required if specified on the order]]>
+			</description>
+		</field>
+		<field tagRef="1092" />
+		<field tagRef="99">
+			<description>
+        <![CDATA[Required if specified on the order]]>
+			</description>
+		</field>
+		<group required="false" ref="TriggeringInstruction">
+			<description>
+        <![CDATA[Insert here the set of "TriggeringInstruction" fields defined in "common components of application
+            messages"
+        ]]>
+			</description>
+		</group>
+		<group required="false" ref="PegInstructions">
+			<description>
+        <![CDATA[
+            Insert here the set of "PegInstruction" fields defined in "Common Components of Application Messages"
+        ]]>
+			</description>
+		</group>
+		<group required="false" ref="DiscretionInstructions">
+			<description>
+        <![CDATA[
+            Insert here the set of "DiscretionInstruction" fields defined in "Common Components of Application Messages"
+        ]]>
+			</description>
+		</group>
+		<field tagRef="839">
+			<description>
+        <![CDATA[The current price the order is pegged at]]>
+			</description>
+		</field>
+		<field tagRef="1095">
+			<description>
+        <![CDATA[The reference price of a pegged order.]]>
+			</description>
+		</field>
+		<field tagRef="845">
+			<description>
+        <![CDATA[The current discretionary price of the order]]>
+			</description>
+		</field>
+		<field tagRef="847">
+			<description>
+        <![CDATA[The target strategy of the order]]>
+			</description>
+		</field>
+		<field tagRef="957">
+			<description>
+        <![CDATA[Indicates number of strategy parameters]]>
+			</description>
+		</field>
+		<group required="false" ref="StrategyParametersGrp">
+			<description>
+        <![CDATA[Strategy parameter block]]>
+			</description>
+		</group>
+		<field tagRef="848">
+			<description>
+        <![CDATA[For further specification of the TargetStrategy]]>
+			</description>
+		</field>
+		<field tagRef="849">
+			<description>
+        <![CDATA[Mandatory for a TargetStrategy=Participate order and specifies the target particpation rate.
+            For other order types optionally specifies a volume limit (i.e. do not be more than this percent of the
+            market volume)]]>
+			</description>
+		</field>
+		<field tagRef="850">
+			<description>
+        <![CDATA[For communication of the performance of the order versus the target strategy]]>
+			</description>
+		</field>
+		<field tagRef="15" />
+		<field tagRef="376" />
+		<field tagRef="377" />
+		<field tagRef="59">
+			<description>
+        <![CDATA[Absence of this field indicates Day order]]>
+			</description>
+		</field>
+		<field tagRef="168">
+			<description>
+        <![CDATA[Time specified on the order at which the order should be considered valid]]>
+			</description>
+		</field>
+		<field tagRef="432">
+			<description>
+        <![CDATA[Conditionally required if TimeInForce = GTD and ExpireTime is not specified.]]>
+			</description>
+		</field>
+		<field tagRef="126">
+			<description>
+        <![CDATA[Conditionally required if TimeInForce = GTD and ExpireDate is not specified.]]>
+			</description>
+		</field>
+		<field tagRef="18">
+			<description>
+        <![CDATA[Can contain multiple instructions, space delimited.]]>
+			</description>
+		</field>
+		<field tagRef="1057" />
+		<field tagRef="528" />
+		<field tagRef="529" />
+		<field tagRef="1091" />
+		<field tagRef="582" />
+		<field tagRef="32">
+			<description>
+        <![CDATA[Quantity (e.g. shares) bought/sold on this (last) fill. Required if ExecType = Trade or Trade Correct.
+            If ExecType=Stopped, represents the quantity stopped/guaranteed/protected for.]]>
+			</description>
+		</field>
+		<field tagRef="1056">
+			<description>
+        <![CDATA[Used for FX trades to express the quantity or amount of the other side of the currency.
+            Conditionally required if ExecType = Trade or Trade Correct and is an FX trade.]]>
+			</description>
+		</field>
+		<field tagRef="1071">
+			<description>
+        <![CDATA[Optionally used when ExecType = Trade or Trade Correct and is a FX Swap trade. Used to express the
+            swap points for the swap trade event.]]>
+			</description>
+		</field>
+		<field tagRef="652" />
+		<field tagRef="31">
+			<description>
+        <![CDATA[Price of this (last) fill. Required if ExecType = Trade or Trade Correct.
+            Should represent the "all-in" (LastSpotRate + LastForwardPoints) rate for F/X orders. ).
+            If ExecType=Stopped, represents the price stopped/guaranteed/protected at.
+            Not required for FX Swap when ExecType = Trade or Trade Correct as there is no "all-in" rate that applies to
+            both legs of the FX Swap.]]>
+			</description>
+		</field>
+		<field tagRef="651" />
+		<field tagRef="669">
+			<description>
+        <![CDATA[Last price expressed in percent-of-par. Conditionally required for Fixed Income trades when LastPx is
+            expressed in Yield, Spread, Discount or any other price type that is not percent-of-par.]]>
+			</description>
+		</field>
+		<field tagRef="194">
+			<description>
+        <![CDATA[Applicable for F/X orders]]>
+			</description>
+		</field>
+		<field tagRef="195">
+			<description>
+        <![CDATA[Applicable for F/X orders]]>
+			</description>
+		</field>
+		<field tagRef="30">
+			<description>
+        <![CDATA[If ExecType = Trade (F), indicates the market where the trade was executed. If ExecType = New (0), indicates
+            the market where the order was routed.]]>
+			</description>
+		</field>
+		<field tagRef="336" />
+		<field tagRef="625" />
+		<field tagRef="943" />
+		<field tagRef="29" />
+		<field tagRef="151" required="true">
+			<description>
+        <![CDATA[Quantity open for further execution. If the OrdStatus is Canceled, DoneForTheDay, Expired, Calculated, or
+            Rejected (in which case the order is no longer active) then LeavesQty could be 0, otherwise LeavesQty =
+            OrderQty - CumQty.]]>
+			</description>
+		</field>
+		<field tagRef="14" required="true">
+			<description>
+        <![CDATA[Currently executed quantity for chain of orders.]]>
+			</description>
+		</field>
+		<field tagRef="6">
+			<description>
+        <![CDATA[Not required for markets where average price is not calculated by the market.
+            Conditionally required otherwise.]]>
+			</description>
+		</field>
+		<field tagRef="424">
+			<description>
+        <![CDATA[For GT orders on days following the day of the first trade.]]>
+			</description>
+		</field>
+		<field tagRef="425">
+			<description>
+        <![CDATA[For GT orders on days following the day of the first trade.]]>
+			</description>
+		</field>
+		<field tagRef="426">
+			<description>
+        <![CDATA[For GT orders on days following the day of the first trade.]]>
+			</description>
+		</field>
+		<field tagRef="1361">
+			<description>
+        <![CDATA[Used to support fragmentation. Sum of NoFills across all messages with the same ExecID.]]>
+			</description>
+		</field>
+		<field tagRef="893">
+			<description>
+        <![CDATA[Indicates whether this is the last fragment in a sequence of message fragments. Only required where
+            message has been fragmented.]]>
+			</description>
+		</field>
+		<field tagRef="1362">
+			<description>
+        <![CDATA[Specifies the number of partial fills included in this Execution Report]]>
+			</description>
+		</field>
+		<group required="false" ref="FillsGrp">
+			<description>
+        <![CDATA[Specifies the partial fills included in this Execution Report]]>
+			</description>
+		</group>
+		<field tagRef="427">
+			<description>
+        <![CDATA[States whether executions are booked out or accumulated on a partially filled GT order]]>
+			</description>
+		</field>
+		<field tagRef="75">
+			<description>
+        <![CDATA[Used when reporting other than current day trades.]]>
+			</description>
+		</field>
+		<field tagRef="11289"/>
+		<field tagRef="60" required="true">
+			<description>
+        <![CDATA[Time the transaction represented by this ExecutionReport occurred]]>
+			</description>
+		</field>
+		<field tagRef="113" />
+		<group required="false" ref="CommissionData">
+			<description>
+        <![CDATA[
+            Insert here the set of "CommissionData" fields defined in "Common Components of Application Messages"
+            Note: On a fill/partial fill messages, it represents value for that fill/partial fill. On
+            ExecType=Calculated, it represents cumulative value for the order. Monetary commission values are expressed
+            in the currency reflected by the Currency field.
+        ]]>
+			</description>
+		</group>
+		<group required="false" ref="SpreadOrBenchmarkCurveData">
+			<description>
+        <![CDATA[
+            Insert here the set of "SpreadOrBenchmarkCurveData" (Fixed Income spread or benchmark curve) fields defined
+            in "Common Components of Application Messages"
+        ]]>
+			</description>
+		</group>
+		<group required="false" ref="YieldData">
+			<description>
+        <![CDATA[
+            Insert here the set of "YieldData" (yield-related) fields defined in "Common Components of Application
+            Messages"
+        ]]>
+			</description>
+		</group>
+		<field tagRef="381" />
+		<field tagRef="157" />
+		<field tagRef="230" />
+		<field tagRef="158" />
+		<field tagRef="159" />
+		<field tagRef="738">
+			<description>
+        <![CDATA[For fixed income products which pay lump-sum interest at maturity.]]>
+			</description>
+		</field>
+		<field tagRef="920">
+			<description>
+        <![CDATA[For repurchase agreements the accrued interest on termination.]]>
+			</description>
+		</field>
+		<field tagRef="921">
+			<description>
+        <![CDATA[For repurchase agreements the start (dirty) cash consideration]]>
+			</description>
+		</field>
+		<field tagRef="922">
+			<description>
+        <![CDATA[For repurchase agreements the end (dirty) cash consideration]]>
+			</description>
+		</field>
+		<field tagRef="258" />
+		<field tagRef="259" />
+		<field tagRef="260" />
+		<field tagRef="238" />
+		<field tagRef="237" />
+		<field tagRef="118">
+			<description>
+        <![CDATA[Note: On a fill/partial fill messages, it represents value for that fill/partial fill, on
+            ExecType=Calculated, it represents cumulative value for the order. Value expressed in the currency reflected
+            by the Currency field.]]>
+			</description>
+		</field>
+		<field tagRef="119">
+			<description>
+        <![CDATA[Used to report results of forex accommodation trade]]>
+			</description>
+		</field>
+		<field tagRef="120">
+			<description>
+        <![CDATA[Used to report results of forex accommodation trade]]>
+			</description>
+		</field>
+		<field tagRef="155">
+			<description>
+        <![CDATA[Foreign exchange rate used to compute SettlCurrAmt from Currency to SettlCurrency]]>
+			</description>
+		</field>
+		<field tagRef="156">
+			<description>
+        <![CDATA[Specifies whether the SettlCurrFxRate should be multiplied or divided]]>
+			</description>
+		</field>
+		<field tagRef="21" />
+		<field tagRef="110" />
+		<field tagRef="1089" />
+		<field tagRef="1090" />
+		<group required="false" ref="DisplayInstruction">
+			<description>
+        <![CDATA[Insert here the set of "DisplayInstruction" fields defined in "common components of application
+            messages"
+        ]]>
+			</description>
+		</group>
+		<field tagRef="111" />
+		<field tagRef="77">
+			<description>
+        <![CDATA[For use in derivatives omnibus accounting]]>
+			</description>
+		</field>
+		<field tagRef="210" />
+		<field tagRef="775">
+			<description>
+        <![CDATA[Method for booking out this order. Used when notifying a broker that an order to be settled by that broker
+            is to be booked out as an OTC derivative (e.g. CFD or similar). Absence of this field implies regular
+            booking.]]>
+			</description>
+		</field>
+		<field tagRef="58" />
+		<field tagRef="354">
+			<description>
+        <![CDATA[Must be set if EncodedText field is specified and must immediately precede it.]]>
+			</description>
+		</field>
+		<field tagRef="355">
+			<description>
+        <![CDATA[Encoded (non-ASCII characters) representation of the Text field in the encoded format specified via the
+            MessageEncoding field.]]>
+			</description>
+		</field>
+		<field tagRef="193">
+			<description>
+        <![CDATA[Can be used with OrdType = "Forex - Swap" to specify the "value date" for the future portion of a F/X swap.]]>
+			</description>
+		</field>
+		<field tagRef="192">
+			<description>
+        <![CDATA[Can be used with OrdType = "Forex - Swap" to specify the order quantity for the future portion of a F/X
+            swap.]]>
+			</description>
+		</field>
+		<field tagRef="641">
+			<description>
+        <![CDATA[Can be used with OrdType = "Forex - Swap" to specify the forward points (added to LastSpotRate) for the
+            future portion of a F/X swap.]]>
+			</description>
+		</field>
+		<field tagRef="442">
+			<description>
+        <![CDATA[Default is a single security if not specified.]]>
+			</description>
+		</field>
+		<field tagRef="480">
+			<description>
+        <![CDATA[For CIV - Optional]]>
+			</description>
+		</field>
+		<field tagRef="481" />
+		<field tagRef="513">
+			<description>
+        <![CDATA[Reference to Registration Instructions message for this Order.]]>
+			</description>
+		</field>
+		<field tagRef="494">
+			<description>
+        <![CDATA[Supplementary registration information for this Order]]>
+			</description>
+		</field>
+		<field tagRef="483">
+			<description>
+        <![CDATA[For CIV - Optional]]>
+			</description>
+		</field>
+		<field tagRef="515">
+			<description>
+        <![CDATA[For CIV - Optional]]>
+			</description>
+		</field>
+		<field tagRef="484">
+			<description>
+        <![CDATA[For CIV - Optional]]>
+			</description>
+		</field>
+		<field tagRef="485">
+			<description>
+        <![CDATA[For CIV - Optional]]>
+			</description>
+		</field>
+		<field tagRef="638" />
+		<field tagRef="639" />
+		<field tagRef="851">
+			<description>
+        <![CDATA[Applicable only on OrdStatus of Partial or Filled.]]>
+			</description>
+		</field>
+		<field tagRef="518">
+			<description>
+        <![CDATA[Number of contract details in this message (number of repeating groups to follow)]]>
+			</description>
+		</field>
+		<group required="false" ref="ContAmtGrp">
+			<description>
+        <![CDATA[
+            Number of contract details in this message (number of repeating groups to follow)
+        ]]>
+			</description>
+		</group>
+		<field tagRef="555">
+			<description>
+        <![CDATA[Number of legs
+            Identifies a Multi-leg Execution if present and non-zero.]]>
+			</description>
+		</field>
+		<group required="false" ref="InstrmtLegExecGrp">
+			<description>
+        <![CDATA[
+            Number of legs
+            Identifies a Multi-leg Execution if present and non-zero.
+        ]]>
+			</description>
+		</group>
+		<field tagRef="797" />
+		<field tagRef="136">
+			<description>
+        <![CDATA[Required if any miscellaneous fees are reported. Indicates number of repeating entries. Repeating
+            group.
+            ** Nested Repeating Group follows **]]>
+			</description>
+		</field>
+		<group required="false" ref="MiscFeesGrp">
+			<description>
+        <![CDATA[
+            Required if any miscellaneous fees are reported. Indicates number of repeating entries. Repeating group.
+            ** Nested Repeating Group follows **
+        ]]>
+			</description>
+		</group>
+		<field tagRef="1380" />
+		<field tagRef="1028" />
+		<field tagRef="1029" />
+		<field tagRef="1030" />
+		<field tagRef="1031" />
+		<field tagRef="1032" />
+		<field tagRef="768" />
+		<group required="false" ref="TrdRegTimestamps">
+			<description>
+        <![CDATA[]]>
+			</description>
+		</group>
+		<field tagRef="1188" />
+		<field tagRef="1189" />
+		<field tagRef="1190" />
+		<field tagRef="811" />
+		<field tagRef="5899">
+			<description>SpotDate,N,LocalMktDate,User-defined field. Spot Value
+				Date.</description>
+		</field>
+		<field tagRef="6622" />
+		<field tagRef="6623" />
+		<field tagRef="6624" />
+		<field tagRef="6625" />
+		<field tagRef="9016" />
+		<field tagRef="11000">
+			<description>
+        <![CDATA[Thomson Reuters custom tag - Tag to contain 
+any FpML.]]>
+			</description>
+		</field>
+		<field tagRef="11001">
+			<description>
+        <![CDATA[Thomson Reuters custom tag - Allows messages 
+from each publisher to be identified by a source of data which can 
+then be imported into RTNS.]]>
+			</description>
+		</field>
+		<field tagRef="11002">
+			<description>
+        <![CDATA[Thomson Reuters custom tag - Contains the 
+Connection Name of the connection that this message was received on.]]>
+			</description>
+		</field>
+		<field tagRef="11003">
+			<description>
+        <![CDATA[Thomson Reuters custom tag - Contains the 
+Execution Style of the message.]]>
+			</description>
+		</field>
+		<field tagRef="11004">
+			<description>
+        <![CDATA[Thomson Reuters custom tag - Contains the 
+SenderCompID of the Publisher's connection.]]>
+			</description>
+		</field>
+		<field tagRef="11008">
+			<description>
+        <![CDATA[Thomson Reuters custom tag - Sending Time 
+ preserving milliseconds]]>
+			</description>
+		</field>
+		<field tagRef="11011">
+			<description>
+        <![CDATA[Thomson Reuters custom tag - Contains the
+                                proxy user name used to send messages to GID.logs.]]>
+			</description>
+		</field>
+		<field tagRef="11017">
+			<description>
+        <![CDATA[Thomson Reuters custom tag - Contains the original Product(460) value before
+ incoming translations.]]>
+			</description>
+		</field>
+		<field tagRef="11042">
+			<description><![CDATA[Thomson Reuters custom tag - Sequence number of original incoming message]]></description>
+		</field>
+		<field tagRef="11043">
+			<description><![CDATA[Thomson Reuters custom tag - The type of money markets deal.]]></description>
+		</field>
+		<group required="true" ref="StandardTrailer">
+			<description>
+        <![CDATA[
+        ]]>
+			</description>
+		</group>
+		<field tagRef="11020" />
+		<group required="false" ref="TR_HedgeGroup">
+			<description><![CDATA[Repeating Group to contain Hedge Details]]></description>
+		</group>
+		<field tagRef="11060">
+			<description><![CDATA[Thomson Reuters custom tag - FXO base currency indicator.]]></description>
+		</field>
+
+		<field tagRef="11065">
+			<description><![CDATA[Mid Market Price - spot rate]]></description>
+		</field>
+		<field tagRef="11066">
+			<description><![CDATA[Mid Market Price - NDF,FORWARD all in]]></description>
+		</field>
+		<field tagRef="11068">
+			<description><![CDATA[Mid Market Price - swap rate]]></description>
+		</field>
+		<field tagRef="11069">
+			<description><![CDATA[Thomson Reuters custom tag - Block Trade indicator.]]></description>
+		</field>
+		<field tagRef="11071">
+			<description>
+        	<![CDATA[Mid Market Price - clearing indicator]]>
+			</description>
+		</field>
+		<field tagRef="11072">
+			<description><![CDATA[Thomson Reuters custom tag - Schema for unique product identifier.]]></description>
+		</field>
+		<field tagRef="11073">
+			<description><![CDATA[Thomson Reuters custom tag - Unique product identifier.]]></description>
+		</field>
+
+		<field tagRef="30400" />
+		<group required="false" ref="TR_UDFGroup">
+			<description><![CDATA[Repeating Group to user defined fields group]]></description>
+		</group>
+
+		<field tagRef="6645">
+			<description><![CDATA[Benchmark fixing type.]]></description>
+		</field>
+		<field tagRef="6644">
+			<description><![CDATA[Benchmark fixing rate.]]></description>
+		</field>
+		<field tagRef="11078">
+			<description><![CDATA[Thomson Reuters custom user defined field's Benchmark fixing date.]]></description>
+		</field>
+		<field tagRef="11079">
+			<description><![CDATA[Thomson Reuters custom user defined field's Benchmark fixing time.]]></description>
+		</field>
+		<field tagRef="11105"/>
+				
+<field tagRef="74" />
+		<field tagRef="270" />
+		<field tagRef="1026" />
+		<field tagRef="1027" />
+		<field tagRef="1150"/>
+		<field tagRef="7502" />
+		<field tagRef="11097" />
+		<!-- Add tag 11096 -> deal/mm_deal/leg/maturity_date@type during add it for TCR in TR Callout requirement report TPTS-850 was related -->
+		<field tagRef="11096"/>
+		<field tagRef="11098" />
+		<field tagRef="11099" />
+		<field tagRef="11100" />
+		<field tagRef="11101" />
+		<field tagRef="11102" />
+		<field tagRef="11103" />
+		<field tagRef="11104" />
+		
+		<!-- MIFID II STP tags -->
+        <field tagRef="11217"/>
+        <field tagRef="11225"/>
+        <field tagRef="11227"/>
+        <field tagRef="11228"/>
+        <field tagRef="855"/>
+        <field tagRef="828"/>
+        <field tagRef="31345"/>
+        <field tagRef="2489"/>           
+        <field tagRef="11234"/>
+        <field tagRef="11237"/>
+        <field tagRef="11238"/>
+        <field tagRef="11226"/>
+        <field tagRef="107"/>
+        <field tagRef="231"/>
+        <field tagRef="11245"/>
+        <field tagRef="11246"/>
+        <field tagRef="31344"/>
+        <field tagRef="30416"/>
+        <field tagRef="30417"/>
+        
+        
+        <field tagRef="552" required="false">
+            <description><![CDATA[Number of sides]]></description>
+        </field>
+        <group required="false" ref="ExecRptSideGrp">
+            <description><![CDATA[
+            Number of sides
+        ]]></description>
+        </group>
+	</fieldList>
+</message>
+		</fixDatadict>

@@ -16,7 +16,7 @@ public class AcceptorApp
 
     public static void main( String[] args )
     {
-        SocketAcceptor socketAcceptor = null;
+        SocketInitiator socketAcceptor = null;
         try{
             FixAcceptor fixAccepter = new FixAcceptor();
             SessionSettings executorSettings = new SessionSettings("./qfj_acceptor.cfg");
@@ -25,7 +25,7 @@ public class AcceptorApp
             MessageFactory messageFactory = new DefaultMessageFactory();
             FileLogFactory fileLogFactory = new FileLogFactory(executorSettings);
 
-            socketAcceptor = new SocketAcceptor(application, fileStoreFactory, executorSettings, fileLogFactory, messageFactory);
+            socketAcceptor = new SocketInitiator(application, fileStoreFactory, executorSettings, fileLogFactory, messageFactory);
             socketAcceptor.start();
 
             ArrayList<SessionID> sessions = socketAcceptor.getSessions();

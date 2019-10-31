@@ -17,10 +17,11 @@ import org.apache.logging.log4j.Logger;
 
 import quickfix.DataDictionary;
 import quickfix.Group;
+import quickfix.Message;
 import quickfix.StringField;
 import quickfix.field.*;
-import quickfix.fix44.Message;
-import quickfix.fix44.TradeCaptureReport;
+import quickfix.fix50sp1.ExecutionReport;
+import quickfix.fix50sp1.TradeCaptureReport;
 
 public class MessageBuilderTCR {
     final static Logger logger = LogManager.getLogger();
@@ -51,9 +52,9 @@ public class MessageBuilderTCR {
 
     private void LoadSampleMessage() {
         try {
-            DataDictionary dd = new DataDictionary("./datadict_ebs.xml");
+            DataDictionary dd = new DataDictionary("D:\\git\\quickfixj-sample\\Server\\src\\main\\resources\\FIX50SP1_TRTN.xml");
 
-            File file = new File("C:\\DriveD\\CodePTS\\QuickFixJ\\qfjdemo\\Server\\src\\main\\resources\\tcr_ebs.txt");
+            File file = new File("src/main/resources/tcr_ebs.txt");
             if (file.exists())
             {
                 Scanner sc = new Scanner(file);
@@ -74,20 +75,17 @@ public class MessageBuilderTCR {
                     msg.fromString(line, dd, true);
 
                     String tempStr = msg.getHeader().getString(35);
-                    if (tempStr.equals("AE"))
-                    {
-                        TradeCaptureReport tcr = new TradeCaptureReport();
-                        tcr.fromString(line, dd, true);
-                        
-                        // add missing fields
-                        tcr = SetAdditionFields(tcr, i);
+                    Message m = new Message();
+                    m.fromString(line, dd, true);
 
-                        // add to msg list
-                        m_listSampleMsg.add(tcr);
+                    // add missing fields
+//                        m = SetAdditionFields(m, i);
 
-                        logger.info("read TCR log from file\n" + tcr.toXML());
+                    // add to msg list
+                    m_listSampleMsg.add(m);
 
-                    }
+                    logger.info("read TCR log from file\n" + m.toXML());
+
                 }
                 m_iterSample = m_listSampleMsg.iterator();
 

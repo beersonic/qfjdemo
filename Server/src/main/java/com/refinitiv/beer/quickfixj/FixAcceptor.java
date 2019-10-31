@@ -17,8 +17,8 @@ import quickfix.Session;
 import quickfix.SessionID;
 import quickfix.SessionNotFound;
 import quickfix.UnsupportedMessageType;
-import quickfix.fix44.MessageCracker;
-import quickfix.fix44.NewOrderSingle;
+import quickfix.fix50sp1.MessageCracker;
+import quickfix.fix50sp1.NewOrderSingle;
 
 public class FixAcceptor extends MessageCracker implements Application
 {

@@ -1,18 +1,38 @@
-/Client/.classpath
-/Client/.factorypath
-/Client/.project
-/Client/.settings
-/Client/.vscode
-/Client/Client_Logs
-/Client/Client_Seq_Store
-/Client/logs
-/Client/target
-/Server/target
-/Server/.settings
-/Server/.vscode
-/Server/logs
-/Server/Server_Logs
-/Server/Server_Seq_Store
-/Server/.factorypath
-/Server/.project
-/Server/.classpath
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+logs
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### FIX ###
+Client_Seq_Store*
+Client_Logs
+/*.log
