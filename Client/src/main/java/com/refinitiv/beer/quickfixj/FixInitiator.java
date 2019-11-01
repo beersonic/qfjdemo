@@ -4,6 +4,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import quickfix.*;
+import quickfix.field.MsgType;
+import quickfix.field.Password;
+import quickfix.field.Username;
+import quickfix.fix44.Message.Header;
 
 public class FixInitiator extends ApplicationAdapter {
     final static Logger logger = LogManager.getLogger();
@@ -24,6 +28,20 @@ public class FixInitiator extends ApplicationAdapter {
 
     @Override
     public void toAdmin(Message message, SessionID sessionId) {
+        try {
+            if (message.getHeader().getString(MsgType.FIELD).equals("A")) {
+                message.setString(Username.FIELD, "MyUserName");
+                
+                // pass
+                // message.setString(Password.FIELD, "MyPwd1234");
+                // failed
+                message.setString(Password.FIELD, "MyPwd1234-failed");
+            }
+        } catch (FieldNotFound e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
         handleCommonMessage("toAdmin", message, sessionId);
     }
 

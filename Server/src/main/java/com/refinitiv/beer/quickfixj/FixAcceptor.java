@@ -4,6 +4,7 @@ import java.util.HashSet;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.mina.core.session.SessionState;
 
 import quickfix.Application;
 import quickfix.DoNotSend;
@@ -17,8 +18,11 @@ import quickfix.Session;
 import quickfix.SessionID;
 import quickfix.SessionNotFound;
 import quickfix.UnsupportedMessageType;
+import quickfix.field.MsgType;
+import quickfix.field.Password;
+import quickfix.field.SessionStatus;
+import quickfix.field.Username;
 import quickfix.fix44.MessageCracker;
-import quickfix.fix44.NewOrderSingle;
 
 public class FixAcceptor extends MessageCracker implements Application
 {
@@ -59,6 +63,13 @@ public class FixAcceptor extends MessageCracker implements Application
         handleCommonMessage("toAdmin", message, sessionId);
     }
     
+    private boolean IsGoodLogon(String username, String password)
+    {
+        boolean pwdEndWithNumber = (password.matches(".+\\d+"));
+        
+        return pwdEndWithNumber;
+    }
+
     @Override
     public void toApp(Message message, SessionID sessionId) throws DoNotSend {
         //super.toApp(message, sessionId);
@@ -70,6 +81,26 @@ public class FixAcceptor extends MessageCracker implements Application
             throws FieldNotFound, IncorrectDataFormat, IncorrectTagValue, RejectLogon {
         //super.fromAdmin(message, sessionId);
         handleCommonMessage("fromAdmin", message, sessionId);
+
+        try {
+            if (message.getHeader().getString(MsgType.FIELD).equals("A")) {
+                
+                //String user = message.getHeader().getString(Username.FIELD);
+                //String password = message.getHeader().getString(Password.FIELD);
+                String  user = message.getString(Username.FIELD);
+                String password = message.getString(Password.FIELD);
+                
+                if (!IsGoodLogon(user, password))
+                {
+                    logger.error("bad logon username/password");
+                    throw new RejectLogon("bad username/password", true, SessionStatus.INVALID_USERNAME_OR_PASSWORD); 
+                }
+                logger.info("good username/password logon");
+            }
+        } catch (FieldNotFound e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
     
     @Override
